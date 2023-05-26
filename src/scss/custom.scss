@@ -1,0 +1,230 @@
+//Variables
+$main-bg-color: #141416;
+$secondary-bg-color: #222630;
+$button-bg-color: #3772ff;
+$regular-text-color: #b1b5c3;
+$regular-font-size: 24px;
+$base-gap: 10px;
+$block-border-radius: 12px;
+$control-border-radius: 8px;
+$button-border-radius: 90px;
+$danger-color: #d33535;
+$success-color: #58bd7d;
+
+//HomeOne
+//.home-1 {
+//  position: relative;
+//}
+
+//Event Card
+.EventCard {
+  //position: absolute;
+  //top: 50px;
+  //right: 200px;
+
+  width: 300px;
+  height: 520px;
+
+  background-color: $main-bg-color;
+
+  border-radius: $block-border-radius;
+
+  &_Item {
+    margin-bottom: 0 !important;
+    padding: $base-gap $base-gap * 2;
+    text-align: center;
+  }
+
+  &_Title {
+    text-align: center;
+  }
+
+  &_Progress {
+  }
+}
+
+.SoldTokensAmount {
+  font-size: $regular-font-size;
+  font-weight: 700;
+  color: $danger-color;
+}
+
+.EventCard .bg-danger {
+  background-color: $danger-color !important;
+}
+
+.TokensRemained {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: $base-gap * 8;
+  padding: $base-gap;
+  border: solid 1px $regular-text-color;
+  border-radius: $block-border-radius;
+}
+
+.BuyTokensButtonContainer {
+  display: flex;
+  justify-content: center;
+}
+
+//CountDownTimer
+.TimerContainer {
+  padding: $base-gap * 2;
+  font-size: $regular-font-size;
+  text-align: center;
+}
+
+.row > .TimerItemContainer {
+  padding-left: $base-gap / 2 !important;
+  padding-right: $base-gap / 2 !important;
+}
+
+.Timer_Titles {
+  margin-bottom: $base-gap;
+}
+
+.Timer_Item {
+  min-width: $base-gap * 4;
+  border: solid 1px $secondary-bg-color;
+  border-radius:  $block-border-radius;
+  text-align: center;
+  padding: $base-gap / 2;
+  //margin-right: $base-gap / 2;
+}
+
+//ModalBuyToken
+.ModalBuyToken {
+  background-color: $main-bg-color;
+}
+
+//ModalNotification
+.ModalNotification {
+  background-color: $main-bg-color;
+}
+
+.CloseModalButton {
+  background-color: $secondary-bg-color;
+  border: none;
+}
+
+.btn-close {
+  background-color: $regular-text-color;
+}
+
+//Banner01
+.banner__image {
+  display: flex;
+}
+
+@media (max-width: 911px) {
+  .ImageContainer {
+    max-width: 500px;
+  }
+
+  .BannerImage {
+    max-width: 500px;
+  }
+}
+
+@media (max-width: 819px) {
+  .ImageContainer {
+    display: flex;
+    align-items: center;
+  }
+
+  .BannerImage {
+    width: 400px;
+  }
+}
+
+@media (max-width: 767px) {
+  .banner__image {
+    justify-content: center;
+  }
+
+  .ImageContainer {
+    display: none;
+  }
+}
+
+.EventContainer {
+  min-width: 300px;
+}
+
+.ImageContainer {
+  flex-grow: 1;
+}
+
+//Register
+.CheckBoxContainer {
+  box-sizing: border-box;
+  width: 20px !important;
+  height: 20px !important;
+  border-radius: $control-border-radius;
+}
+
+.CheckBox {
+  //width: 20px !important;
+  //height: 20px !important;
+  //border-radius: $control-border-radius;
+  display: none;
+}
+
+.PrivacyPolicyAcceptLabel {
+  width: 20px !important;
+  height: 20px !important;
+  background-color: white;
+  border-radius: $control-border-radius;
+
+  &_Checked {
+    background-color: $button-bg-color;
+    position: relative;
+
+    &::before {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 20px;
+      height: 20px;
+      content: '';
+      background-image: url('../assets/images/check-mark.png');
+      background-position: center;
+      background-size: contain;
+      color: white;
+      transform: translate(-50%, -50%);
+    }
+  }
+}
+
+//UserProfile
+.UserEmailContainer {
+  position: relative;
+  margin-bottom: 0;
+}
+
+.EmailVerifiedIcon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  padding: $base-gap / 2 !important;
+  transform: translate(-125%, -50%);
+  font-size: $regular-font-size;
+  color: $success-color;
+}
+
+.EmailVerificationButton {
+  position: absolute;
+  margin: 0 !important;
+  top: 50%;
+  left: 50%;
+  max-width: 60px;
+  padding: $base-gap / 2 !important;
+  transform: translate(-125%, -50%);
+
+  @include res767 {
+    top: 20%;
+    left: 100%;
+  }
+}
