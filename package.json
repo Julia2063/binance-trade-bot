@@ -1,6 +1,6 @@
 {
-  "name": "cyboxreact",
-  "version": "0.1.0",
+  "name": "binance-trade-bot",
+  "homepage": "https://Julia2063.github.io/binance-trade-bot",
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.1.1",
