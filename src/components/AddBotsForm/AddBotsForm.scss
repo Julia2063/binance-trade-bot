@@ -1,0 +1,56 @@
+@import '../../scss/variables';
+
+.addBotsForm {
+    
+    &__section {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+    &__label {
+        padding-left: 14px;
+        font-size: 24px;
+        font-weight: 600;
+        line-height: 36px;
+        letter-spacing: 0em;
+    }
+
+    &__submit {
+        align-self: end;
+
+        background: $green;
+        border: none;
+        padding: 12px 20px;
+        border-radius: 40px;
+
+        width: 170px;
+
+        font-weight: 700;
+        font-size: 24px;
+        line-height: 36px;
+        color: $white;
+        
+
+    }
+
+    & input {
+        background: none;
+        border: none;
+        color: $white;
+        outline: none;
+        font-size: 24px;
+        font-weight: 600;
+        line-height: 36px;
+        letter-spacing: 0em;
+    }
+
+    &__input {
+        background: $bg-5;
+        
+
+        &__drop {
+            background: $bg-5;
+        }
+    }
+    
+}

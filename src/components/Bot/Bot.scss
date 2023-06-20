@@ -1,0 +1,40 @@
+@import '../../scss/variables';
+
+.bot {
+    height: 80px;
+    background: $gray;
+    display: flex;
+    align-items: center;
+
+    border-left: 8px solid var(--primary);
+
+    &__status {
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 18px;
+        border-radius: 20px;
+        padding: 4px 10px;
+        text-align: center;
+        
+
+        &--wait {
+            background: $bg-5;
+        }
+        &--ready {
+            background: yellow;
+        }
+        &--work {
+            background: $green;
+        }
+    }
+
+    & button {
+        border: none;
+        background: none;
+
+        & svg {
+            width: 18px;
+            height: 20px;
+        }
+    }
+}

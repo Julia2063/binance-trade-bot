@@ -1,0 +1,126 @@
+@import '../../scss/variables';
+
+.exchanges {
+   &__container {
+     gap: 40px;
+
+     & p {
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 24px;
+     }
+
+     & .col {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+     }
+   } 
+
+   &__label {
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 30px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+   }
+
+   &__placeholder {
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 24px;
+      color: rgba(255, 255, 255, 0.5);
+   }
+
+   &__input {
+      background: $gray;
+      
+    &__drop {
+        background: $gray;
+    }
+   }
+
+   &__inputGroop {
+      display: grid;
+      grid-template-columns: 7fr 0.5fr;
+      gap: 10px;
+     
+   }
+
+   &__keys {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+
+      & label {
+         width: 100%;
+         display: flex;
+         flex-direction: column;
+         gap: 10px;
+         position: relative;
+      }
+
+      & input {
+         height: 60px;
+         background: $gray;
+         border: none;
+         outline: none;
+         border-radius: 40px;
+         width: 100%;
+
+         padding: 0 20px;
+
+         font-weight: 600;
+         font-size: 16px;
+         line-height: 24px;
+         color: $white;
+
+         &::placeholder {
+            font-weight: 600;
+            font-size: 16px;
+            line-height: 24px;
+            color: rgba(255, 255, 255, 0.5);
+         }
+      }
+   }
+
+   &__copy {
+      position: absolute;
+
+      background: none;
+      border: none;
+      top: 55%;
+      left: 90%;
+   }
+
+   &__submit {
+      height: 55px;
+      font-weight: 700;
+      font-size: 20px;
+      line-height: 30px;
+      border: none;
+   }
+
+}
+
+.item-enter {
+   max-height: 0;
+ }
+   
+ .item-enter-active {
+   overflow: hidden;
+   max-height: 400px;
+   transition: max-height 0.3s ease-in-out;
+ }
+   
+ .item-exit {
+   max-height: 58px;
+ }
+   
+ .item-exit-active {
+   overflow: hidden;
+   max-height: 0;
+   transition: max-height 0.3s ease-in-out;
+ }

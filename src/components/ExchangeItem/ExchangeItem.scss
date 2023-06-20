@@ -1,0 +1,108 @@
+@import '../../scss/variables';
+
+.exchangeItem {
+    background: $gray;
+    display: grid;
+    grid-template-columns: auto 3fr;
+    gap: 15px;
+    height: max-content;
+    border-radius: 20px;
+    align-items: center;
+    font-size: 16px;
+
+
+    padding: 15px 20px;
+
+    
+
+    &__logo {
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+        align-items: center;
+
+        color: orange;
+
+        letter-spacing: 0.2em;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    } 
+
+    &__info {
+        overflow: hidden;
+
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        line-height: 16px;
+
+        &__connect {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+
+            &--on {
+                color: $green;
+                border: 1px solid $green;
+                padding: 2px;
+                border-radius: 5px;
+            }
+
+            &--off {
+                color: red;
+                border: 1px solid red;
+                padding: 2px;
+                border-radius: 5px;
+            }
+        }
+    }
+
+    &__api {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        color: $txt-color;
+    }
+
+    &__path {
+        display: flex;
+        gap: 10px;
+       
+
+        &__content {
+            background:  $txt-color;
+            color: black;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+            position: relative;
+            width: 70%;
+            border-radius: 10px;
+            padding-left: 10px;
+            padding-right: 30px;
+
+            
+            line-height: 30px;
+        
+        }
+
+        &__copy {
+            position: absolute;
+            top: 7px;
+            left: 90%;
+            background: none;
+            border: none;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        &__remove {
+            color: $txt-color;
+            background: none;
+            border: none;
+          
+            border-bottom: 1px solid $txt-color;
+        }
+    }
+}

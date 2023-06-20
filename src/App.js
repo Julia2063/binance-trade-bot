@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState} from 'react';
 import AOS from 'aos';
-import {Route, Routes, useNavigate} from 'react-router-dom';
+import {Route, Routes, useLocation, useNavigate} from 'react-router-dom';
 import Header from './components/header';
 import Footer from './components/footer';
 import '../src/assets/font/font-awesome.css'
@@ -8,6 +8,7 @@ import routes from './pages';
 import Page404 from './pages/404';
 import {AppContext} from "./helpers/appContext";
 import {
+    db,
     fire,
     getCollectionWhereKeyValue,
     setDocumentToCollection,
@@ -16,6 +17,11 @@ import {
 import firebase from "firebase/compat/app";
 import {collectionsNames, userModel} from "./helpers/models";
 import {englishDictionary, russianDictionary} from "./helpers/dictionaries";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from 'react-toastify';
+import { doc, onSnapshot } from 'firebase/firestore';
+
+
 
 function App() {
     //#region Get data from appContext
@@ -23,6 +29,8 @@ function App() {
     //#endregion
 
     console.log(user);
+
+    const location = useLocation();
 
     //#region Get navigate variable
     const navigate = useNavigate();
@@ -89,8 +97,10 @@ function App() {
                                 setUser(res[0]);
                             }
                         }
-
-                        navigate('/wallet')
+                        onSnapshot(doc(db, "users", res[0].idPost), (doc) => {
+                            setUser({...user, ...doc.data()});
+                            });
+                        navigate('/work-page')
                         // localStorage.setItem('binanceBotUserData', JSON.stringify(r[0]));
                 }
                 ).catch(e => console.log(e));
@@ -114,7 +124,8 @@ function App() {
     //#region Render
     return (
         <>
-            <Header />
+         
+            <Header background={location.pathname === '/work-page' ? true : false}/>
             {/*<button*/}
             {/*    onClick={() => {*/}
             {/*        getCollectionWhereKeyValue('users', 'uid', user.uid).then(r => {*/}
@@ -143,6 +154,20 @@ function App() {
             </Routes>
 
             <Footer />
+            <ToastContainer
+                position="top-center"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                icon={false}
+                progressClassName="toastProgress"
+                bodyClassName="toastBody"
+            />
         </>
     );
     //#endregion

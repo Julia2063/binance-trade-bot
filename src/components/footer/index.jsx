@@ -8,7 +8,7 @@ function Footer(props) {
     const [productLink] = useState([
         {
             title: 'Product1',
-            path: '#'
+            path: '/work-page'
         },
         {
             title: 'Product2',

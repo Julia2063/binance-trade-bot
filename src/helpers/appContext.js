@@ -1,6 +1,11 @@
 import React, {useState} from 'react';
 import {dictionaryModel, userModel} from "./models";
 import {englishDictionary} from "./dictionaries";
+import { useEffect } from 'react';
+import { db, getCollectionWhereKeyValue } from './firebaseConfigAndControls';
+import { doc, onSnapshot } from 'firebase/firestore';
+
+
 
 export const AppContext = React.createContext({
     user: userModel,
@@ -13,6 +18,11 @@ export const AppContext = React.createContext({
     setDictionary:  () => {},
     setDictionaries: () => {},
     setDefaultDictionary: () => {},
+    bots: [],
+    setBots: () => {},
+    botAdded: 0,
+    setBotAdded: () => {},
+
 });
 
 export const AppProvider = ({ children }) => {
@@ -21,7 +31,27 @@ export const AppProvider = ({ children }) => {
     const [defaultDictionary, setDefaultDictionary] = useState(englishDictionary);
     const [dictionaries, setDictionaries] = useState([]);
     const [lang, setLang] = useState('en');
+    const [bots, setBots] = useState([]);
+    const [botAdded, setBotAdded] = useState(0);
 
+    
+    const getData = async() => {
+        try {
+            const botsArray = await getCollectionWhereKeyValue("bots", "uid", user.uid);
+            setBots(botsArray);
+        } catch (error) {
+            console.log(error);
+        }
+        
+    };
+
+    useEffect(() => {
+        getData();
+    }, [user, botAdded]);
+
+    
+    console.log(user);
+  
     const contextValue = {
         user,
         setUser,
@@ -32,7 +62,11 @@ export const AppProvider = ({ children }) => {
         dictionaries,
         setDictionaries,
         lang,
-        setLang
+        setLang,
+        bots,
+        setBots,
+        botAdded,
+        setBotAdded,
     }
 
     return (

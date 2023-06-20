@@ -48,7 +48,7 @@ function Banner01(props) {
                         </p>
                         <Button
                             title={getTranslation('Get started now', dictionary, defaultDictionary)}
-                            path='/login'
+                            path='/work-page'
                         />
                         {/*<div className="partner">*/}
                         {/*    <h6>{dataBlock.title2}</h6>*/}

@@ -341,7 +341,7 @@ function UserProfile(props) {
                 <Tabs>
                     <TabList>
                         <div className="user-info center">
-                          <form onSubmit={(e) => updateAvatarInBD(e)}>
+                          {/* <form onSubmit={(e) => updateAvatarInBD(e)}>
                             <div className="avt">
                               <input
                                 type="file"
@@ -363,7 +363,7 @@ function UserProfile(props) {
                               </button> 
                             )}
                             
-                          </form>
+                          </form> */}
                             <h6 className="name">
                                 {updatedData.fullName}
                             </h6>

@@ -2,21 +2,31 @@ export const userModel = {
     //idPost: '',
     fullName: '',
     email: '',
-    avatarLink: '',
     phoneNumber: '',
     role: '',
     isEmailVerified: '',
     dateCreating: '',
     balanceUSDT: 0,
-    balanceTokens: 0,
-    robotsInUse: [],
     uid: '',
-
+    status: false,
+    BinanceApiKey: '',
+    BinanceSecretKey: '',
+    error: '',
 };
 
-export const robotModel = {
-    //idPost: '',
+export const botModel = {
+    name: '',
+    fund: 0,
+    uid: '',
+    turn: false,
+    growth: 0,
+    profit: 0,
+    exchange: '',
+    pair: '',
+    status: '',
 };
+
+
 
 export const dictionaryModel = {
     name: '',

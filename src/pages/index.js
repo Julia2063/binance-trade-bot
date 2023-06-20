@@ -22,6 +22,7 @@ import Contact from "./Contact";
 import Faq from "./Faq";
 import PrivacyPolicy from "./PrivacyPolicy";
 import Certificates from "./Certificates";
+import WorkPage from "./WorkPage";
 
 const routes = [
   { path: '/', component: <HomeOne />},
@@ -48,6 +49,7 @@ const routes = [
   { path: '/faq', component: <Faq />},
   { path: '/privacy', component: <PrivacyPolicy />},
   { path: '/certificates', component: <Certificates />},
+  { path: '/work-page', component: <WorkPage />},
 ]
 
 export default routes;

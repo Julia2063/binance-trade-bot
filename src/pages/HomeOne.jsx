@@ -24,7 +24,6 @@ function HomeOne(props) {
     return (
         <div className='home-1'>
             {/*<EventCard eventId={'5y1IvZRaz6fIurbVevtP'} showModal={showModal} setShowModal={setShowModal}/>*/}
-
             <Banner01 data={dataPartner} setShowModal={setShowModal} />
 
             <Crypto01 />

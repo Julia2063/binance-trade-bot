@@ -134,7 +134,7 @@ function Register(props) {
           } else {
             setShowNotification(true);
             setNotificationTitle('Register error');
-            setNotificationMessage('Perhaps a user with this email address already exists');
+            setNotificationMessage('Perhaps a user with this email address already exists or password length is less than 6 characters');
           }
 
     }

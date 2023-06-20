@@ -1,0 +1,11 @@
+@import '../../scss/variables';
+
+.binance {
+    height: 113px;
+    background: $gray;
+    border-radius: 40px;
+    background-image: url('../../assets/images/BinanceBackdrop.png');
+    background-repeat: no-repeat;
+
+    background-position: center 13px;
+}

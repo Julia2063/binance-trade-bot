@@ -20,7 +20,7 @@ import {getTranslation} from "../../helpers/adminHelper";
 import {AppContext} from "../../helpers/appContext";
 // import Button from '../button';
 
-const Header = () => {
+const Header = ({ background }) => {
     const [scroll, setScroll] = useState(false);
         useEffect(() => {
         window.addEventListener("scroll", () => {
@@ -67,6 +67,7 @@ const Header = () => {
         <header id="header_main" className={`header ${scroll ? 'is-fixed' : ''}`}>
             <div className="container-fluid">
                 <div className="row">
+                   {background && <div className="header__background" />}
                 <div className="col-12">
                     <div className="header__body d-flex justify-content-between">
                     <div className="header__left">
@@ -658,16 +659,16 @@ const Header = () => {
                         </div>
                         <div className={`mobile-button ${menuActive ? 'active' : ''}`} onClick={handleMenuActive}><span></span></div>
 
-                        {user?.idPost &&
+                        {/* {user?.idPost &&
                             <div className="wallet">
                                 <Link to="/wallet"> Wallet </Link>
                             </div>
-                        }
+                        } */}
 
                         {user?.idPost &&
                             <Dropdown className='user'>
                                 <Dropdown.Toggle >
-                                    <img src={user.avatarLink.length > 0 ? user.avatarLink : avt} alt="BinanceBot" />
+                                    <img src={user.avatarLink?.length > 0 ? user.avatarLink : avt} alt="BinanceBot" />
                                 </Dropdown.Toggle>
 
                                 <Dropdown.Menu>

@@ -15,17 +15,17 @@ import {
     sendEmailVerification,
 } from "firebase/auth";
 import { getDatabase, ref, onValue } from "firebase/database";
-import {userModel} from "./models";
+import {botModel, userModel} from "./models";
 import {format} from "date-fns";
 
 const firebaseConfig = {
-    apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
-    authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
-    projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
-    storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
-    messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
-    appId: process.env.REACT_APP_FIREBASE_APP_ID,
-    measurementId: process.env.REACT_APP_FIREBASE_measurementId,
+    apiKey: "AIzaSyBivXDEHeYIWcANpPmhUvGJaGpYcaLhJWY",
+    authDomain: "binance-powerful-bot.firebaseapp.com",
+    projectId: "binance-powerful-bot",
+    storageBucket: "binance-powerful-bot.appspot.com",
+    messagingSenderId: "426509279304",
+    appId: "1:426509279304:web:0ddd9038233235f44ab87d",
+    measurementId: "G-W5L5D0K017"
 };
 
 // Initialize Firebase
@@ -132,7 +132,27 @@ export async function updateFieldInDocumentInCollection (collection, docId, fiel
     }
 
     return result;
-}
+};
+
+export function createNewBot(fund, uid, exchange) {
+    let bot_to_firebase = {
+        ...botModel,
+        fund,
+        uid,
+        name: Math.floor(Date.now() * Math.random()).toString().slice(0, 6),
+        exchange,
+        pair: "LTC/USDT",
+        status: "waiting for entry",
+    };
+    
+    return new Promise(function (resolve, reject) {
+        setDocumentToCollection('bots', bot_to_firebase).then(r => {
+            resolve(r);
+        }).catch(e => {
+            reject(e)
+        });
+  })
+};
 
 /*** ================================================================================
  *          USER Auth
@@ -154,9 +174,9 @@ export function createNewUser(regInfo) {
                     // lastName: regInfo?.lastName,
                     fullName: regInfo?.fullName || regInfo.email || '',
                     phoneNumber: regInfo?.phoneNumber || '',
-                    avatarLink: regInfo?.avatarLink || '',
                     isEmailVerified: regInfo?.isEmailVerified,
                     dateCreating: format(new Date(), "dd-MM-yyyy HH:mm"),
+                    
                     role: 'user',
                 };
                 setDocumentToCollection('users', user_to_firebase_start).then(r => {

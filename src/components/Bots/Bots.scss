@@ -1,0 +1,81 @@
+@import '../../scss/variables';
+
+.bots {
+    &__container {
+    gap: 80px;
+  }
+
+  &__row{
+    padding: 0;
+
+    & > * {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+
+  &__col {
+    &:last-child {
+      display: flex;
+      justify-content: end;
+      align-items: center;
+      gap: 20px;
+    }
+  }
+
+  &__tabs {
+
+    &__list {
+      display: flex;
+      gap: 35px;
+    }
+
+    &__tab {
+      width: 110px;
+      cursor: pointer;
+      padding-bottom: 5px;
+
+      &--active {
+        border-bottom: 3px solid var(--primary);
+      }
+    }
+
+    &__tabPanel {
+      padding-top: 80px;
+
+      &__title {
+        margin-bottom: 40px;
+      }
+    }
+  }
+
+  &__bots {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+  }
+}
+
+.addBotButton {
+    border-radius: 50%;
+    width: 147px;
+    height: 40px;
+    border-radius: 20px;
+    background-color: $gray;
+    border: none;
+    color: $green;
+
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+
+    & svg {
+        width: 20px;
+    }
+
+    
+
+  
+}
+

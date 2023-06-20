@@ -1,6 +1,5 @@
 @use '../../scss/' as *;
 
-
 .header {
   position: relative;
   top: 0;
@@ -11,6 +10,7 @@
   background: var(--bg);
   @include flex(center, center);
   transition: $transition;
+  
 
   &.ex {
     border-bottom: 1px solid var(--surface);
@@ -32,6 +32,19 @@
     padding: 0 17px;
     @include mobile {
       padding: 0;
+    }
+  }
+
+  &__background {
+    background: $bg-5;
+    height: 50px;
+    width: 195px;
+    position: absolute;
+    z-index: -1;
+    top: 0;
+
+    @include tablet {
+      background: transparent;
     }
   }
 
