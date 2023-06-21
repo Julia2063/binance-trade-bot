@@ -4,6 +4,7 @@ import { AiFillAppstore } from "react-icons/ai";
 import { IoSettingsOutline } from "react-icons/io5";
 import Bots from '../components/Bots/Bots';
 import Exchanges from '../components/Exchanges/Exchanges';
+import Dashboard from '../components/Dashboard/Dashboard';
 
 function WorkPage() {
     const [ tabIndex ,  setTabIndex ]  =  useState ( 0 ) ;
@@ -54,12 +55,7 @@ function WorkPage() {
                   <Exchanges />
                 </TabPanel>
                 <TabPanel>
-                  <div className="content-inner">
-                  <div className="wallet-main">
-                  <h4 className="heading">Rent a bot</h4>
-                  </div>
-                    
-                  </div>
+                  <Dashboard />
                    
                 </TabPanel>
                 

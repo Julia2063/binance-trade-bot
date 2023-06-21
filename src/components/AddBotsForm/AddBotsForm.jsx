@@ -15,7 +15,7 @@ import { AppContext } from '../../helpers/appContext';
 
 import { toast } from "react-toastify";
 
-function AddBotsForm({ handleModal, setTabIndex }) {
+function AddBotsForm({ handleModal, setTabIndex, isUpdateLimit }) {
     const [isSelectOpen, setIsSelectOpen] = useState(false);
     
 
@@ -33,6 +33,12 @@ function AddBotsForm({ handleModal, setTabIndex }) {
     useEffect(() => {
       setAvailable(user.balanceUSDT);
     }, [user]);
+
+    useEffect(() => {
+      if(isUpdateLimit) {
+        setFund(user.tradingLimit);
+      }
+    }, [])
 
     useOnClickOutside(inputRef, () => setIsSelectOpen(false));
 
@@ -70,7 +76,10 @@ function AddBotsForm({ handleModal, setTabIndex }) {
         try {
           /* await createNewBot(fund, user.uid, exchange); */
           await updateFieldInDocumentInCollection('users', user.idPost, 'tradingLimit', fund);
-          toast.success('Bot has been created!');
+          isUpdateLimit 
+          ? toast.success('Fund has been updated!')
+          : toast.success('Bot has been created!');
+          
           /* setBotAdded(botAdded + 1); */
         } catch (error) {
           console.log(error);
@@ -89,11 +98,16 @@ function AddBotsForm({ handleModal, setTabIndex }) {
               text="Connect your exchanges in settings or use a simulated account using Paper Trading."
             />
             <div className="input addBotsForm__input" ref={inputRef}>
-                {exchange}
+                {isUpdateLimit ? selectValues[1][1] : exchange}
                 <button 
-                  className={cn("input__button1", {'input__button1--open': isSelectOpen})} 
+                  className={cn("input__button1", {
+                    'input__button1--open': isSelectOpen,
+                    'input__button1--disabled': isUpdateLimit,
+
+                  })} 
                   onClick={() => setIsSelectOpen(!isSelectOpen)}
                   type='button'
+                  disabled={isUpdateLimit}
                 >
                     <TbCaretDown width={11} height={20}/>
                 </button>
@@ -156,7 +170,7 @@ function AddBotsForm({ handleModal, setTabIndex }) {
             </div>
         </div>
           <CustomButton 
-            title="Create bot"
+            title={isUpdateLimit ? "Change limit" : "Create bot"}
             customClass="addBotsForm__submit"
           />
         

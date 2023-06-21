@@ -552,7 +552,7 @@ body[data-magic-cursor="hide"] .mouse-cursor {
   width: 18px;
   left: 4px;
   bottom: 3px;
-  background-color: var(--primary);
+  background-color: red;
   -webkit-transition: .4s;
   transition: .4s;
 }
@@ -561,6 +561,7 @@ input:checked + .slider:before {
   -webkit-transform: translateX(30px);
   -ms-transform: translateX(30px);
   transform: translateX(30px);
+  background-color: var(--primary);
 }
 
 input:checked + .slider:after {
@@ -719,4 +720,9 @@ input:checked + .slider:after {
 }
 .toastProgress {
   background: #333F48 !important;
+}
+
+.chart {
+  width: 100%;
+  
 }

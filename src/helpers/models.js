@@ -12,6 +12,7 @@ export const userModel = {
     BinanceApiKey: '',
     BinanceSecretKey: '',
     error: '',
+    tradingLimit: 0,
 };
 
 export const botModel = {

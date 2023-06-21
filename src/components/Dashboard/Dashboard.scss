@@ -1,0 +1,12 @@
+.dashboard {
+    &__title {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    &__container {
+        gap: 40px;
+    }
+
+}

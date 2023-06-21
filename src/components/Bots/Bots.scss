@@ -7,6 +7,7 @@
 
   &__row{
     padding: 0;
+    
 
     & > * {
       padding-left: 0;
@@ -45,6 +46,7 @@
 
       &__title {
         margin-bottom: 40px;
+        border-left: 8px solid transparent;
       }
     }
   }

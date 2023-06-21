@@ -47,13 +47,25 @@ function Exchanges() {
         setKeys(newKeys);
     };
 
+    const getBalance = async () => {
+        try {
+            await updateFieldInDocumentInCollection('users', user.idPost, 'command', 'GetBalance');
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    useEffect(() => {
+        getBalance();
+    }, [user.BinanceApiKey])
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
             await updateFieldInDocumentInCollection('users', user.idPost, `${exchange}ApiKey`, keys.apiKey);
             await updateFieldInDocumentInCollection('users', user.idPost, `${exchange}SecretKey`, keys.secretKey);
-            await updateFieldInDocumentInCollection('users', user.idPost, 'command', 'GetBalance');
+            
             toast.success("Perfect! Your API keys has been added. Let's create a bot)");
             setExchange(null);
             

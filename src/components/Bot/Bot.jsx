@@ -3,52 +3,64 @@ import './Bot.scss';
 
 import cn from 'classnames';
 
-import { FaRegCopy, FaRegEdit} from "react-icons/fa";
-import { HiOutlineEye } from "react-icons/hi";
+import { FaEdit } from "react-icons/fa";
+import { BsFillBarChartLineFill } from "react-icons/bs";
+import { useContext } from 'react';
+import { AppContext } from '../../helpers/appContext';
+import { updateFieldInDocumentInCollection } from '../../helpers/firebaseConfigAndControls';
+import { useEffect } from 'react';
 
-function Bot({ bot, i }) {
 
-    const [on, setOn] = useState(bot.turn);
+function Bot({ setIsUpdateLimit, setIsModal}) {
+    const { user } = useContext(AppContext);
+    const [on, setOn] = useState(false);
 
-    const handleChange = () => { 
-        setOn(!on);   
-    }; 
+    useEffect(() => {
+        setOn(user.status);
+    }, [user]);
+    console.log(on);
 
+    const handleChange = async ({ target: { checked } }) => {
+        try {
+         await updateFieldInDocumentInCollection('users', user.idPost, 'status', checked);
+        } catch (error) {
+         console.log(error);
+        }
+     };
+    
+    const handleChangeLimit = () => {
+        setIsUpdateLimit(true);
+        setIsModal(true);
+    };
 
     return (
-        <div className='bot row'>
-            <div className='col-1'>{i + 1}</div>
-            <div className='col'>{bot.name}</div>
-            <div className='col'>{bot.pair}</div>
-            <div className={cn("col bot__status",
-              {"bot__status--wait": bot.status === "waiting for entry",
-               "bot__status--ready": bot.status === "",
-               "bot__status--work": bot.status === "deal in progress"
-              })}>
-                
-                {bot.status}</div>
-            <div className='col'>{`+${bot.growth}%`  }</div>
-            <div className='col'>{`$${bot.profit}` }</div>
+        <div className={cn('bot row', {
+            'bot--off': !on,
+        })} >
+            <div className='col-1'>1</div>
+            <div className='col'>BinanceBot</div>
+            <div className='col'>{`${user.tradingLimit} USDT` }</div>
             <div className='col'>
             <label class="switch">
                 <input 
                   type="checkbox" 
-                  checked={on}
                   onChange={handleChange}
+                  checked={on}
                 />
                 <span class="slider round"></span>
             </label>
             </div>
-            <div className='col-3 center'>
+            <div className='col-2 center'>
                 <div className="row">
-                    <button className="col">
-                        <FaRegCopy />
+                 
+                    <button
+                      className="col"
+                      onClick={handleChangeLimit}
+                    >
+                        <FaEdit />
                     </button>
                     <button className="col">
-                        <FaRegEdit />
-                    </button>
-                    <button className="col">
-                        <HiOutlineEye />
+                        < BsFillBarChartLineFill  />
                     </button>
                 </div>
             </div>
