@@ -20,12 +20,12 @@ import { CSSTransition } from 'react-transition-group';
 import { toast } from 'react-toastify';
 import { doc, onSnapshot } from 'firebase/firestore';
 import ExchangeItem from '../ExchangeItem/ExchangeItem';
+import Input from '../Input/Input';
 
 
 function Exchanges() {
 
-    const [isSelectOpen, setIsSelectOpen] = useState(false);
-    const selectValues = [[<SiBinance color='orange'/>,'Binance']];
+    const selectValues = ['Choose exchange -', 'Binance'];
     const [exchange, setExchange] = useState(null);
     const [keys, setKeys] = useState({});
 
@@ -34,10 +34,6 @@ function Exchanges() {
     
 
     const { user } = useContext(AppContext);
-
-    const inputRef = useRef();
-
-    useOnClickOutside(inputRef, () => setIsSelectOpen(false));
 
     const handleChange = (fieldName, newValue) => {
         let newKeys = {
@@ -82,8 +78,9 @@ function Exchanges() {
         }
         if(user.BinanceApiKey.length > 0) {
             setIsExchange(true);
+    
         }
-    }, [user])
+    }, [user]);
 
     console.log(exchangeConnect);
     
@@ -97,38 +94,16 @@ function Exchanges() {
                         <p>Choose among the top crypto currency exchanges</p>
                     </div>
                     <div className="exchanges__inputGroop">
-                        <div className="input exchanges__input" ref={inputRef}>
-                            {exchange ? exchange : (
-                            <span className="exchanges__placeholder">Chouse your exchange</span>
-                        )}
-                        <button 
-                            className={cn("input__button1", {
-                                'input__button1--open': isSelectOpen,
-                                'input__button1--disabled': exchangeConnect,
-                            })} 
-                            onClick={() => setIsSelectOpen(!isSelectOpen)}
-                            type='button'
-                            disabled={exchangeConnect}
-                        >
-                            <TbCaretDown width={11} height={20}/>
-                        </button>
-                        {isSelectOpen && (
-                            <div className='input__drop exchanges__input__drop'>
-                                {selectValues.map(el => {
-                                    return (
-                                        <div 
-                                            className="input__item"
-                                            onClick={() => {
-                                            setExchange(el[1]);
-                                            setIsSelectOpen(false);
-                                         }}
-                                        >
-                                            {el}
-                                        </div>
-                                    )})}
-                            </div>
-                           )}
-                        </div>
+
+                        <Input
+                          selectValues={selectValues}
+                          value={exchange ? exchange : exchangeConnect ? "Binance" : selectValues[0]}
+                          setValue={setExchange}
+                          disabled={exchangeConnect}
+                          className={cn('input--gray', {
+                            disabled: exchangeConnect,
+                          })}
+                        />
                         <ElementWithExplain />
                     </div>
                     {/* <p className="center">or</p>

@@ -14,19 +14,20 @@ import { useContext } from 'react';
 import { AppContext } from '../../helpers/appContext';
 
 import { toast } from "react-toastify";
+import Input from '../Input/Input';
+
 
 function AddBotsForm({ handleModal, setTabIndex, isUpdateLimit }) {
-    const [isSelectOpen, setIsSelectOpen] = useState(false);
+   
     
 
-    const selectValues = [[<div />, "Demo"],[<SiBinance color='orange'/>,'Binance']];
-    const [exchange, setExchange] = useState(selectValues[0][1]);
+    const selectValues = ['Choose exchange -', 'Demo', 'Binance'];
+    const [exchange, setExchange] = useState(selectValues[0]);
     const [available, setAvailable] = useState(1000);
     const [fund, setFund] = useState(0);
     const [isInput, setIsInput] = useState(false);
     const { user } = useContext(AppContext);
 
-    const inputRef = useRef();
 
     console.log(fund);
 
@@ -39,8 +40,6 @@ function AddBotsForm({ handleModal, setTabIndex, isUpdateLimit }) {
         setFund(user.tradingLimit);
       }
     }, [])
-
-    useOnClickOutside(inputRef, () => setIsSelectOpen(false));
 
     const handleChange = (e) => {
       if(e.target.value.match(/[^0-9]/g)){
@@ -97,38 +96,13 @@ function AddBotsForm({ handleModal, setTabIndex, isUpdateLimit }) {
               title="Exchange"
               text="Connect your exchanges in settings or use a simulated account using Paper Trading."
             />
-            <div className="input addBotsForm__input" ref={inputRef}>
-                {isUpdateLimit ? selectValues[1][1] : exchange}
-                <button 
-                  className={cn("input__button1", {
-                    'input__button1--open': isSelectOpen,
-                    'input__button1--disabled': isUpdateLimit,
-
-                  })} 
-                  onClick={() => setIsSelectOpen(!isSelectOpen)}
-                  type='button'
-                  disabled={isUpdateLimit}
-                >
-                    <TbCaretDown width={11} height={20}/>
-                </button>
-                {isSelectOpen && (
-                    <div className='input__drop addBotsForm__input__drop'>
-                      {selectValues.map(el => {
-                        return (
-                            <div 
-                              className="input__item"
-                              onClick={() => {
-                                setExchange(el[1]);
-                                setIsSelectOpen(false);
-                              }}
-                            >
-                                {el[0]}{el[1]}
-                            </div>
-                        )
-                      })}
-                    </div>
-                ) }
-            </div>
+            <Input
+              selectValues={selectValues}
+              value={exchange}
+              setValue={setExchange}
+              disabled={isUpdateLimit}
+              className={'input--dark'}
+            />
         </div>
         <div className="addBotsForm__section">
             <p className="addBotsForm__label">2. Trade Parameters</p>
@@ -137,7 +111,7 @@ function AddBotsForm({ handleModal, setTabIndex, isUpdateLimit }) {
               text="Maximum initial funds set aside for the bot."
             />
             <div 
-              className="input addBotsForm__input"
+              className="input input--dark"
               onClick={() => setIsInput(true)}
             >
                 {isInput 

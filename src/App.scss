@@ -601,104 +601,6 @@ input:checked + .slider:after {
   }
 }
 
-.input {
-  font-size: 24px;
-  font-weight: 600;
-  line-height: 36px;
-  letter-spacing: 0em;
-
-  padding: 12px 25px;
-
-  border-radius: 40px;
-
-  position: relative;
-
-  &__button1 {
-      background: none;
-      border: none;
-      position: absolute;
-      right: 20px;
-     
-
-      &::before {
-          content: "";
-          display: block;
-          position: absolute;
-          height: 27.5px;
-          width: 1px;
-          background: $white;
-          top: 5px;
-          left: -13px;
-      }
-
-      &--open {
-          & svg {
-             transition: all 0.3s;
-             transform: rotate(180deg);
-          }
-      }
-
-      &--disabled {
-        opacity: 0.5;
-      }
-  }
-
-  &__drop {
-      position: absolute;
-      top: 70px;
-      width: 100%;
-      left: 0;
-      z-index: 100;
-      font-size: 16px;
-      font-weight: 600;
-      line-height: 16px;
-      padding: 10px 0;
-      
-      height: max-content;
-
-      border-radius: 40px;
-      
-  }
-
-  &__item {
-      padding: 12px 40px;
-      cursor: pointer;
-      display: flex;
-      gap: 10px;
-
-      & div {
-        width: 16px;
-      }
-  }
-
-  &__button2 {
-      background: none;
-      border: none;
-      position: absolute;
-      
-      &--1 {
-          transform: rotate(180deg);
-          right: 20px;
-          top: 2px;
-
-         &::before {
-          content: "";
-          display: block;
-          position: absolute;
-          height: 27.5px;
-          width: 1px;
-          background: $white;
-          top: -5px;
-          left: 38px;
-      }  
-      }
-
-      &--2 {
-          right: 20px;
-          bottom: 2px;
-      }
-  }
-}
 
 .Toastify__toast--warning {
   background: $gray  !important;
@@ -725,4 +627,12 @@ input:checked + .slider:after {
 .chart {
   width: 100%;
   
+}
+
+.disabled {
+  color: $color-main2;
+  
+  & svg {
+      fill: $color-main2;
+  }
 }

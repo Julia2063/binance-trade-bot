@@ -38,19 +38,12 @@
         border: none;
         color: $white;
         outline: none;
-        font-size: 24px;
-        font-weight: 600;
-        line-height: 36px;
+        font-size: 18px;
+        font-weight: 500;
+        line-height: 27px;
         letter-spacing: 0em;
     }
 
-    &__input {
-        background: $bg-5;
-        
-
-        &__drop {
-            background: $bg-5;
-        }
-    }
+ 
     
 }

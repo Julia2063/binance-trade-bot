@@ -1,12 +1,142 @@
+@import '../../scss/variables';
+
 .dashboard {
     &__title {
         display: flex;
         justify-content: space-between;
         align-items: center;
+
+        margin-bottom: 40px;
+
+        &__control {
+            display: flex;
+            align-items: center;
+            gap: 47px;
+        }
+
+        &__buttons {
+            display: flex;
+            align-items: center;
+
+            & span {
+                font-weight: 500;
+                font-size: 18px;
+                line-height: 27px;
+                margin-right: 5px;
+            }
+
+            & button {
+                width: max-content;
+                background: none;
+
+                font-weight: 400;
+                font-size: 16px;
+                line-height: 24px;
+                border: none;
+
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 10px;
+
+                padding: 0 15px;
+            }
+
+            & button:last-child {
+                border-left: 1px solid $white;
+            }
+
+            & button {
+                border: none;
+                background: none;
+
+                
+            }
+        }
     }
 
-    &__container {
-        gap: 40px;
+    &__chartSection {
+        display: grid;
+        grid-template-columns: 75% 25%;
+        gap: 30px;
+        width: 100%;
+        padding-right: 30px;
+
+        &__chart {
+            background :$gray;
+            border-radius: 10px;
+
+            padding: 20px;
+        }
+
+        &__datas {
+            display: flex;
+            flex-direction: column;
+            gap: 22px;
+
+            &__item {
+                box-sizing: border-box;
+                height: 100px;
+                width: 100%;
+
+                background :$gray;
+                border-radius: 10px;
+
+                padding: 20px;
+
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+
+                &__title {
+                    font-weight: 400;
+                    font-size: 16px;
+                    line-height: 24px;
+                }
+
+                &__value {
+                    display: flex;
+                    justify-content: space-between;
+
+                    font-weight: 600;
+                    font-size: 20px;
+                    line-height: 30px;
+
+                    &--proc {
+                        color: $green;
+                    }
+                }
+            }
+        }
+    }
+
+    &__refresh {
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 27px;
+        padding: 7px 38px;
+        border-radius: 40px;
+
+        background: $primary;
+        border: none;
+
+        & span {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+    }
+
+    &__datepicker {
+        & .modal__window {
+            width: 75%;
+            padding: 20px;
+        }
+
+        & .modal__close {
+            top: 20px;
+            right: 40px;
+        }
     }
 
 }
