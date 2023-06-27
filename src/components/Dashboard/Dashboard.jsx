@@ -130,11 +130,12 @@ function Dashboard() {
                         
                   return new Date([el[0].slice(0, 4), el[0].slice(4, 6), el[0].slice(6, 8)].join('/') + (` ${el[0].slice(8)}:00`))
                   }).filter(el => (start?.toString().length > 0 ? el > start : el) && (end.toString().length > 0 ? el <= new Date(end).setDate(end.getDate() + 1) : el)).map(el => format(el, 'HH:mm dd.MM.yy'))
-                    : profits.map(el => {
+                : profits.map(el => {
                         
-                      return format(new Date([el[0].slice(0, 4), el[0].slice(4, 6), el[0].slice(6, 8)].join('/') + (` ${el[0].slice(8)}:00`)), 'HH:mm dd.MM.yy');
-                    })} 
-                      profit={profits.map((el) => el[1]).map((el, i, arr) => el + user.tradingLimit + arr.slice(0, i).reduce(function(sum, elem) {
+                  return format(new Date([el[0].slice(0, 4), el[0].slice(4, 6), el[0].slice(6, 8)].join('/') + (` ${el[0].slice(8)}:00`)), 'HH:mm dd.MM.yy');
+                })} 
+
+              profit={profits.map((el) => el[1]).map((el, i, arr) => el + user.tradingLimit + arr.slice(0, i).reduce(function(sum, elem) {
 	                  return sum + elem}, 0)) } 
             />
             </div>
@@ -147,12 +148,13 @@ function Dashboard() {
                 <div className="dashboard__chartSection__datas__item__value">
                   <span>
                     {profits.length > 0 
-                      && `$${profits.map(el => el[1]).reduce((a, b) => a + b, 0)}` 
+                      && `$${profits.map(el => el[1]).reduce((a, b) => a + b, 0).toFixed(2)}` 
                     }
                   </span>
                   <span className="dashboard__chartSection__datas__item__value--proc">
                     {profits.length > 0 &&
-                      Math.sign(profits.map(el => el[1]).reduce((a, b) => a + b, 0)) / user.tradingLimit}
+                      `${profits.map(el => el[1]).reduce((a, b) => a + b, 0) > 0 ? '+' : '-'}${Math.abs((profits.map(el => el[1]).reduce((a, b) => a + b, 0)) / user.tradingLimit * -100).toFixed(2)}%` 
+                    }
                   </span>
                 </div>
               </div> 

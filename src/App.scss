@@ -636,3 +636,10 @@ input:checked + .slider:after {
       fill: $color-main2;
   }
 }
+
+.chartjs-tooltip {
+  background: $white;
+  color: $green;
+  position: absolute;
+  border: 1px solid $green;
+}
