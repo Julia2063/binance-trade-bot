@@ -19,8 +19,6 @@ import OrderLine from '../OrderLine/OrderLine';
 
 import cn from "classnames";
 
-
-
 function Dashboard() {
     const { user } = useContext(AppContext);
     const [start, setStart] = useState('');
@@ -40,8 +38,6 @@ function Dashboard() {
     const pagination = [];
     const [paginationCount, setPaginationCount] = useState([]);
     const [paginationSlice, setPaginationSlice] = useState({start: 0, end: 4});
-
-    
 
     const handleGetInformations = async () => {
       setProfits([]);
@@ -143,9 +139,6 @@ function Dashboard() {
       }
     };
 
-    console.log(orders);
-    console.log(start, end);
-
     return (
         <div className="work-page__container">
           <h1 className="work-page__title dashboard__title">
@@ -239,7 +232,7 @@ function Dashboard() {
                <div>Fee</div>
                <div>Profit</div>
               </div>
-              {visibleOrders.map(el => <OrderLine data={el[1]}/>)}
+              {visibleOrders.map(el => <OrderLine data={el[1]} key={el[0]} />)}
             </div>
             <div className='dashboard__ordersSection__table__footer'>
             {paginationCount.length > 1 && (
@@ -299,15 +292,14 @@ function Dashboard() {
             'dashboard__ordersSection__table__footer__pagination__item', 
             {'dashboard__ordersSection__table__footer__pagination__item--active': currentPage === paginationCount.length}
           )}
-          onClick={() => paginate(paginationCount.length)}
+          onClick={() =>  {
+             paginate(paginationCount.length);
+             setPaginationSlice({start: paginationCount.length - 4, end: paginationCount.length});
+          }
+           }
           >{paginationCount.length}</div>
         </>
-            
-    
-    
-    )
-          
-          }
+        )}
           <button
             onClick={() => {
               setCurrentPage(currentPage + 1);

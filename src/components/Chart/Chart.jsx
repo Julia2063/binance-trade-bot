@@ -186,14 +186,9 @@ export const options = {
 };
 
 
-
-
-
 export function Chart(props) {
   const { times, profit } = props;
   const labels = times.map(el =>  el.split(' '));
-
-  console.log(profit);
 
    const data = {
    labels,

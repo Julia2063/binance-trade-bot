@@ -37,6 +37,7 @@ function FullDatePicker({ setStart, setEnd, handleModal }) {
 
   const onChangeRange = (dates) => {
     const [start, end] = dates;
+  
     setStartDate(start);
     setEndDate(end);
   };
@@ -100,6 +101,13 @@ function FullDatePicker({ setStart, setEnd, handleModal }) {
         break;
     }
   }, [period]);
+
+  useEffect(() => {
+    if(startDate && endDate && new Date(startDate) > new Date(endDate)) {
+     
+      setEndDate(null);
+    }
+  }, [startDate])
 
   const handleSetDate = () => {
     setStart(startDate);

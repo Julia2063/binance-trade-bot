@@ -47,8 +47,10 @@ function WorkPage() {
     useEffect(() => {
         if(!user.idPost) {
             setTabIndex(1);
+        } else {
+            setTabIndex(0);
         }
-    }, []);
+    }, [user]);
 
     return (
         <div className="work-page">

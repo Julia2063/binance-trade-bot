@@ -12,12 +12,11 @@ function OrderLine({ data }) {
     return (
 
         <div className="dashboard__ordersSection__table__item" >
-            {data && (
-                <>
-                <div>{format(new Date(data.created_at * 1000), 'dd-MM-yyyy')}</div>
+         
+            <div>{format(new Date(data.created_at * 1000), 'dd-MM-yyyy')}</div>
             <div>{format(new Date(data.created_at * 1000), 'HH:mm:ss')}</div>
             <div>???</div>
-            <div className="coin">{pair && `${nameLookup(pair)} (${symbolLookup(nameLookup(pair))})` }</div>
+            <div className="coin">{/* pair && `${nameLookup(pair)} (${symbolLookup(nameLookup(pair))})` */}hrth</div>
             <div>{(+data.buy_base_qty).toFixed(2)}</div>
             <div>{(+data.buy_quote_qty).toFixed(2)}</div>
             <div>{(+data.buy_price).toFixed(2)}</div>
@@ -26,9 +25,7 @@ function OrderLine({ data }) {
             <div>{(+data.sell_price).toFixed(2)}</div>
             <div>{(+data.fee_sell_stable - +data.fee_buy_stable).toFixed(4)}</div>
             <div className="profit">{(+data.profit_stable).toFixed(2)}</div>
-                </>
-            )}
-            
+         
         </div>
     )
 };
