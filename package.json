@@ -11,6 +11,7 @@
     "aos": "^2.3.4",
     "chart.js": "^3.9.1",
     "classnames": "^2.3.2",
+    "crypto-symbol": "^3.5.440",
     "date-fns": "^2.29.3",
     "faker": "^5.5.3",
     "firebase": "^9.14.0",

@@ -63,7 +63,7 @@ function AddBotsForm({ handleModal, setTabIndex, isUpdateLimit }) {
         event.preventDefault();
         if (exchange !== "Demo" && user.BinanceApiKey.length === 0) {
           toast.warning("Connect to the exchange, please!");
-          setTabIndex(1);
+          setTabIndex(2);
           handleModal();
         };
 

@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import DatePicker from "react-datepicker";
 
 import './FullDatePicker.scss';
-import { getMonth, getYear } from "date-fns";
+import { getMonth, getYear, startOfDay } from "date-fns";
 import range from "lodash/range";
 
 import { FaAngleDown } from "react-icons/fa";
@@ -82,12 +82,12 @@ function FullDatePicker({ setStart, setEnd, handleModal }) {
         setEndDate(new Date());
         break;
       case '3 Days':
-        setStartDate(new Date(new Date().setDate(new Date().getDate() - 2)));
+        setStartDate(startOfDay(new Date(new Date().setDate(new Date().getDate() - 2))) );
         setEndDate(new Date());
         break;
 
       case '7 Days':
-        setStartDate(new Date(new Date().setDate(new Date().getDate() - 6)));
+        setStartDate(startOfDay(new Date(new Date().setDate(new Date().getDate() - 6))));
         setEndDate(new Date());
         break;
 

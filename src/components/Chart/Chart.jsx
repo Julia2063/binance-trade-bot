@@ -49,7 +49,7 @@ export const options = {
   responsive: true,
   
   plugins: {
-    tooltipLine,
+    
     title: {
       display: true,
       align: 'start',
@@ -59,6 +59,7 @@ export const options = {
             size: 18,
             lineHeight: '27px',
             weight: 500,
+            family: "DM Sans"
         }
     },
     legend: {
@@ -74,7 +75,6 @@ export const options = {
         color: 'white',
         boxWidth: 20,
         generateLabels: (chart) => {
-          console.log(chart)
           return chart.data.datasets.map((dataset, index) => ({
             text: dataset.label,
             fillStyle: dataset.backgroundColor,

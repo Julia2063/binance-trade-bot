@@ -3,13 +3,10 @@ import './Exchanges.scss';
 import cn from 'classnames';
 import { useState } from 'react';
 
-import { TbCaretDown } from "react-icons/tb";
 import ElementWithExplain from '../ElementWithExplain/ElementWithExplain';
 /* import Binance from '../Binance/Binance'; */
 
-import { SiBinance } from "react-icons/si";
-import { useRef } from 'react';
-import { useOnClickOutside } from '../../helpers/hooks/useOnClickOutside';
+
 
 import { FaRegCopy } from "react-icons/fa";
 import { db, updateFieldInDocumentInCollection } from '../../helpers/firebaseConfigAndControls';
@@ -45,20 +42,26 @@ function Exchanges() {
 
     const getBalance = async () => {
         try {
-            await updateFieldInDocumentInCollection('users', user.idPost, 'command', 'GetBalance');
+            await updateFieldInDocumentInCollection('users', user.idPost, 'command', 'CheckKeys');
         } catch (error) {
             console.log(error);
         }
     };
 
     useEffect(() => {
-        getBalance();
-    }, [user.BinanceApiKey])
+        if(user.balanceUSDT === 0 && user.BinanceApiKey.length > 0) {
+            getBalance();
+        console.log(user.BinanceApiKey);
+        };
+    }, [user.BinanceApiKey]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
+            if(user.error.length > 0) {
+                await updateFieldInDocumentInCollection('users', user.idPost, `error`, ''); 
+            };
             await updateFieldInDocumentInCollection('users', user.idPost, `${exchange}ApiKey`, keys.apiKey);
             await updateFieldInDocumentInCollection('users', user.idPost, `${exchange}SecretKey`, keys.secretKey);
             
@@ -81,8 +84,6 @@ function Exchanges() {
     
         }
     }, [user]);
-
-    console.log(exchangeConnect);
     
     return (
         <div className="work-page__container exchanges__container">

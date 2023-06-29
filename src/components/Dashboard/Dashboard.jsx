@@ -15,6 +15,9 @@ import { FaAngleDown } from "react-icons/fa";
 import { MdOutlineCalendarMonth } from "react-icons/md";
 import { Modal } from '../Modal/Modal';
 import FullDatePicker from '../Datepicker/FullDatePicker';
+import OrderLine from '../OrderLine/OrderLine';
+
+import cn from "classnames";
 
 
 
@@ -24,9 +27,21 @@ function Dashboard() {
     const [end, setEnd] = useState('');
 
     const [profits, setProfits] = useState([]);
+    const [getedOrders, setGetedOrders] = useState([]);
     const [orders, setOrders] = useState([]);
+    const [visibleOrders, setVisibleOrders] = useState([]);
 
     const [isModal, setIsModal] = useState(false);
+    const [income, setIncome] = useState('');
+    const [incomPerc, setIncomePerc] = useState('');
+
+    const [currentPage, setCurrentPage] = useState(1);
+    const [ordersPerPage] = useState(6);
+    const pagination = [];
+    const [paginationCount, setPaginationCount] = useState([]);
+    const [paginationSlice, setPaginationSlice] = useState({start: 0, end: 4});
+
+    
 
     const handleGetInformations = async () => {
       setProfits([]);
@@ -34,7 +49,7 @@ function Dashboard() {
           updateFieldInDocumentInCollection('users', user.idPost, 'command', 'GetProfitH')
           .then(res => {
             onSnapshot(doc(db, "profits_hour", user.idPost), (doc) => {
-              setProfits(Object.entries(doc.data()).sort((a, b) => a[0] - b[0]) );
+              setProfits(doc.data() ? Object.entries(doc.data()).sort((a, b) => a[0] - b[0]) : [] );
             });    
           });
             setTimeout(() => {
@@ -42,7 +57,7 @@ function Dashboard() {
                 .then(res => {
             onSnapshot(doc(db, "orders", user.idPost), (doc) => {
               if(doc.data()) {
-                setOrders( Object.entries(doc.data()));
+                setGetedOrders(doc.data() ? Object.entries(doc.data()).sort((a, b) => a[1].created_at - b[1].created_at) : []);
               }
              
             });    
@@ -53,6 +68,28 @@ function Dashboard() {
             console.log(error);
         }
     };
+
+    useEffect(() => {
+      const lastOrderIndex = currentPage * ordersPerPage;
+      const firstOrdertIndex = lastOrderIndex - ordersPerPage;
+
+      const currentOrders = orders.slice(firstOrdertIndex, lastOrderIndex);
+  
+        for (let i = 1; i <= Math.ceil(orders.length / ordersPerPage); i++) {
+          pagination.push(i);
+        };
+
+        setPaginationCount(pagination);
+  
+        setVisibleOrders(currentOrders);
+  
+    }, [currentPage, orders, start, end]);
+
+    useEffect(() => {
+      setCurrentPage(1);
+    }, [end, start])
+   
+    const paginate = pageNumber => setCurrentPage(pageNumber);
 
     useEffect(() => {
       if (user.idPost) {
@@ -66,6 +103,24 @@ function Dashboard() {
         });
       }
     },[]);
+
+    useEffect(() => {
+      if(start?.toString().length > 0 || end?.toString().length > 0) {
+        const perideIncome = profits.map(el => {
+                        
+          return [new Date([el[0].slice(0, 4), el[0].slice(4, 6), el[0].slice(6, 8)].join('/') + (` ${el[0].slice(8)}:00`)), el[1]]
+          }).filter(el => (start?.toString().length > 0 ? el[0] > start : el[0]) && (end?.toString().length > 0 ? el[0] <= new Date(end).setDate(end?.getDate() + 1) : el[0])).map(el => el[1]).reduce((a, b) => a + b, 0);
+          setIncome(perideIncome.toFixed(2));
+          setIncomePerc((perideIncome/ user.tradingLimit * 100).toFixed(2));
+
+        const periodOrders = getedOrders.filter(el => (start?.toString().length > 0 ? new Date(el[1].created_at * 1000) >= start :  new Date(el[1].created_at * 1000)) && (end?.toString().length > 0 ? new Date(el[1].created_at * 1000)  <= new Date(end).setDate(end?.getDate() + 1) : new Date(el[1].created_at * 1000)));
+        setOrders(periodOrders);
+      } else {
+        setIncome(profits.map(el => el[1]).reduce((a, b) => a + b, 0).toFixed(2));
+        setIncomePerc(Math.abs((profits.map(el => el[1]).reduce((a, b) => a + b, 0)) / user.tradingLimit * 100).toFixed(2));
+        setOrders(getedOrders);
+      }
+    }, [profits, getedOrders, start, end])
 
     const handleModal = () => {
       setIsModal(false);
@@ -89,9 +144,7 @@ function Dashboard() {
     };
 
     console.log(orders);
-    console.log(profits);
     console.log(start, end);
-    
 
     return (
         <div className="work-page__container">
@@ -129,7 +182,7 @@ function Dashboard() {
                 ? profits.map(el => {
                         
                   return new Date([el[0].slice(0, 4), el[0].slice(4, 6), el[0].slice(6, 8)].join('/') + (` ${el[0].slice(8)}:00`))
-                  }).filter(el => (start?.toString().length > 0 ? el > start : el) && (end.toString().length > 0 ? el <= new Date(end).setDate(end.getDate() + 1) : el)).map(el => format(el, 'HH:mm dd.MM.yy'))
+                  }).filter(el => (start?.toString().length > 0 ? el > start : el) && (end?.toString().length > 0 ? el <= new Date(end).setDate(end.getDate() + 1) : el)).map(el => format(el, 'HH:mm dd.MM.yy'))
                 : profits.map(el => {
                         
                   return format(new Date([el[0].slice(0, 4), el[0].slice(4, 6), el[0].slice(6, 8)].join('/') + (` ${el[0].slice(8)}:00`)), 'HH:mm dd.MM.yy');
@@ -148,12 +201,12 @@ function Dashboard() {
                 <div className="dashboard__chartSection__datas__item__value">
                   <span>
                     {profits.length > 0 
-                      && `$${profits.map(el => el[1]).reduce((a, b) => a + b, 0).toFixed(2)}` 
+                      && `$${income}` 
                     }
                   </span>
                   <span className="dashboard__chartSection__datas__item__value--proc">
                     {profits.length > 0 &&
-                      `${profits.map(el => el[1]).reduce((a, b) => a + b, 0) > 0 ? '+' : '-'}${Math.abs((profits.map(el => el[1]).reduce((a, b) => a + b, 0)) / user.tradingLimit * -100).toFixed(2)}%` 
+                      `${profits.map(el => el[1]).reduce((a, b) => a + b, 0) > 0 ? '+' : '-'}${incomPerc}%` 
                     }
                   </span>
                 </div>
@@ -163,9 +216,113 @@ function Dashboard() {
                   Current balance
                 </div>
                 <div className="dashboard__chartSection__datas__item__value">
-                  <span>gberb</span>
+                  <span>?</span>
                 </div>
               </div> 
+            </div>
+          </div>
+
+          <div className='dashboard__ordersSection'>
+            <h2 className='dashboard__ordersSection__title'>Statistics of closed orders</h2>
+            <div className='dashboard__ordersSection__table'>
+              <div className='dashboard__ordersSection__table__item dashboard__ordersSection__table__title'>
+               <div>Date</div>
+               <div>Time</div>
+               <div>Buy/Sell</div>
+               <div>Coin</div>
+               <div>Buy QTY</div>
+               <div>Buy Quote QTY</div>
+               <div>Buy price</div>
+               <div>Sell QTY</div>
+               <div>Sell Quote QTY</div>
+               <div>Sell Price</div>
+               <div>Fee</div>
+               <div>Profit</div>
+              </div>
+              {visibleOrders.map(el => <OrderLine data={el[1]}/>)}
+            </div>
+            <div className='dashboard__ordersSection__table__footer'>
+            {paginationCount.length > 1 && (
+              <div className="dashboard__ordersSection__table__footer__pagination">
+                <button
+                  onClick={() => {
+                    setCurrentPage(currentPage - 1);
+                    if(paginationSlice.start > 0) {
+                      setPaginationSlice({start: paginationSlice.start - 1, end: paginationSlice.end - 1});
+                    }
+                    
+                  }}
+                  disabled={currentPage === 1}
+                  className={cn({dashboard__ordersSection__table__footer__pagination__disabled: currentPage === 1})}
+                >« Previous
+                </button>
+              {paginationCount.length < 8  
+              ? paginationCount.map(el => {
+                  return (
+                    
+              <div 
+                className={cn(
+                  'dashboard__ordersSection__table__footer__pagination__item', 
+                  {'dashboard__ordersSection__table__footer__pagination__item--active': currentPage === el}
+                )}
+              
+                key={el}
+                onClick={() => paginate(el)}
+              >
+                {el}
+              </div>
+            );
+          })
+          :  
+          (<>
+          {paginationCount.slice(0, -1).slice(paginationSlice.start, paginationSlice.end).map(el => {
+            return (
+              
+        <div 
+          className={cn(
+            'dashboard__ordersSection__table__footer__pagination__item', 
+            {'dashboard__ordersSection__table__footer__pagination__item--active': currentPage === el}
+          )}
+        
+          key={el}
+          onClick={() => paginate(el)}
+        >
+          {el}
+        </div>
+          );
+        })}
+        {paginationSlice.end < paginationCount.length - 1 &&
+          <div className='dashboard__ordersSection__table__footer__pagination__item'>...</div>
+        }
+        
+        <div  className={cn(
+            'dashboard__ordersSection__table__footer__pagination__item', 
+            {'dashboard__ordersSection__table__footer__pagination__item--active': currentPage === paginationCount.length}
+          )}
+          onClick={() => paginate(paginationCount.length)}
+          >{paginationCount.length}</div>
+        </>
+            
+    
+    
+    )
+          
+          }
+          <button
+            onClick={() => {
+              setCurrentPage(currentPage + 1);
+              if(!(paginationCount.slice(0, -1).slice(paginationSlice.start, paginationSlice.end).length < 4)) {
+                setPaginationSlice({start: paginationSlice.start + 1, end: paginationSlice.end + 1});
+              }
+            }
+            } 
+            className={cn({dashboard__ordersSection__table__footer__pagination__disabled: currentPage === paginationCount.length})}
+            disabled={currentPage === paginationCount.length}
+          >
+            Next »
+          </button>
+        </div>
+      )}
             </div>
           </div>
 

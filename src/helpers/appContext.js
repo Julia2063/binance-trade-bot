@@ -48,9 +48,6 @@ export const AppProvider = ({ children }) => {
     useEffect(() => {
         getData();
     }, [user, botAdded]);
-
-    
-    console.log(user);
   
     const contextValue = {
         user,
