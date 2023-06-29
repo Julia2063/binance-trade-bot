@@ -22,7 +22,10 @@ function Bot({ setIsUpdateLimit, setIsModal}) {
 
     const handleChange = async ({ target: { checked } }) => {
         try {
-         await updateFieldInDocumentInCollection('users', user.idPost, 'status', checked);
+            if(user.error.length === 0) {
+                 await updateFieldInDocumentInCollection('users', user.idPost, 'status', checked);
+            }
+        
         } catch (error) {
          console.log(error);
         }

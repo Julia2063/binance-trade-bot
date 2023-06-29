@@ -87,6 +87,8 @@ function AddBotsForm({ handleModal, setTabIndex, isUpdateLimit }) {
         handleModal();
     };
 
+    console.log(isUpdateLimit);
+
     
     return (
        <form className="addBotsForm" onSubmit={(e) => handleSubmit(e)}>

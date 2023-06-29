@@ -16,7 +16,7 @@ function OrderLine({ data }) {
             <div>{format(new Date(data.created_at * 1000), 'dd-MM-yyyy')}</div>
             <div>{format(new Date(data.created_at * 1000), 'HH:mm:ss')}</div>
             <div>???</div>
-            <div className="coin">{/* pair && `${nameLookup(pair)} (${symbolLookup(nameLookup(pair))})` */}hrth</div>
+            <div className="coin">{pair && `${nameLookup(pair)} (${symbolLookup(nameLookup(pair))})`}</div>
             <div>{(+data.buy_base_qty).toFixed(2)}</div>
             <div>{(+data.buy_quote_qty).toFixed(2)}</div>
             <div>{(+data.buy_price).toFixed(2)}</div>
