@@ -181,7 +181,7 @@ function Dashboard() {
                   return format(new Date([el[0].slice(0, 4), el[0].slice(4, 6), el[0].slice(6, 8)].join('/') + (` ${el[0].slice(8)}:00`)), 'HH:mm dd.MM.yy');
                 })} 
 
-              profit={profits.map((el) => el[1]).map((el, i, arr) => el + user.tradingLimit + arr.slice(0, i).reduce(function(sum, elem) {
+              profit={profits.map((el) => el[1]).map((el, i, arr) => el + arr.slice(0, i).reduce(function(sum, elem) {
 	                  return sum + elem}, 0)) } 
             />
             </div>

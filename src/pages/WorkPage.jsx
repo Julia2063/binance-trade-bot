@@ -11,13 +11,9 @@ function WorkPage() {
     const [ tabIndex ,  setTabIndex ]  =  useState ( 0 ) ;
     const [workPageTab] = useState([
         {
-
             id: 1,
             title: 'Dashboard',
             icon: <AiFillAppstore />
-
-            
-            
         },
         {
            
@@ -47,9 +43,7 @@ function WorkPage() {
     useEffect(() => {
         if(!user.idPost) {
             setTabIndex(1);
-        } else {
-            setTabIndex(0);
-        }
+        } 
     }, [user]);
 
     return (
@@ -70,7 +64,7 @@ function WorkPage() {
                   <Bots setTabIndex={setTabIndex} />
                 </TabPanel>
                 <TabPanel>
-                  <Exchanges />
+                  <Exchanges setTabIndex={setTabIndex} />
                 </TabPanel>
                 
                 

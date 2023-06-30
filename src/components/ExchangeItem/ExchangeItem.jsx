@@ -5,6 +5,7 @@ import { useContext } from 'react';
 import { AppContext } from '../../helpers/appContext';
 
 import { FaRegCopy } from "react-icons/fa";
+import ElementWithExplain from '../ElementWithExplain/ElementWithExplain';
 
 function ExchangeItem() {
     const { user } = useContext(AppContext);
@@ -20,10 +21,19 @@ function ExchangeItem() {
                         <span>Banance</span>
                         {user.error.length === 0 
                         ? <span className='exchangeItem__info__connect--on'>live</span>
-                        : <span className='exchangeItem__info__connect--off'>off</span>
+                        : <>
+                            <span className='exchangeItem__info__connect--off'>
+                                off
+                                <div className='exchangeItem__info__connect--off__explain'>
+                                    <ElementWithExplain text={user.error}/>
+                                </div>
+                            </span>
+                           
+                        </>
                         }
                     </div>
-                    <p className='exchangeItem__api'>{`APIKey: ${user.BinanceApiKey}`}</p>
+                    
+                    <div className='exchangeItem__api'>{`APIKey: ${user.BinanceApiKey}`}</div>
                     <div className='exchangeItem__path'>
                         <div className='exchangeItem__path__content'>
                         <span>3.54654654.54654654.54654</span>

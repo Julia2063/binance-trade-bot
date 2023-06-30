@@ -20,7 +20,7 @@ import ExchangeItem from '../ExchangeItem/ExchangeItem';
 import Input from '../Input/Input';
 
 
-function Exchanges() {
+function Exchanges({ setTabIndex }) {
 
     const selectValues = ['Choose exchange -', 'Binance'];
     const [exchange, setExchange] = useState(null);
@@ -51,22 +51,31 @@ function Exchanges() {
     useEffect(() => {
         if(user.balanceUSDT === 0 && user.BinanceApiKey.length > 0) {
             getBalance();
-        console.log(user.BinanceApiKey);
         };
     }, [user.BinanceApiKey]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        
+        if(keys.apiKey.length !== 64 || keys.secretKey.length !== 64) {
+            toast.warning("Length of Your Keys is not valid!");
+            return;
+        };
 
         try {
+            
+
             if(user.error.length > 0) {
                 await updateFieldInDocumentInCollection('users', user.idPost, `error`, ''); 
             };
+
+           
             await updateFieldInDocumentInCollection('users', user.idPost, `${exchange}ApiKey`, keys.apiKey);
             await updateFieldInDocumentInCollection('users', user.idPost, `${exchange}SecretKey`, keys.secretKey);
             
             toast.success("Perfect! Your API keys has been added. Let's create a bot)");
             setExchange(null);
+            setTabIndex(1);
             
         } catch (error) {
             console.log(error);
@@ -117,19 +126,16 @@ function Exchanges() {
                     
                 </div>
                 <div className="col">
-                    <div className="exchanges__label">
-                        Connected Exchanges
+                <div className="exchanges__label">
+                       Connected Exchanges
                         {isExchange
                         ? (
-                            <>
-                                <p>You are currently trading on the following platforms</p>
-                                <ExchangeItem />
-                            </>
+                            <p>You are currently trading on the following platforms</p>
                         ) : (
                             <p>You haven't connected any exchange yet.</p>
                         )} 
-                    </div>
-                    
+                </div>
+                {isExchange && <ExchangeItem /> }     
                 </div>
            </div>
            

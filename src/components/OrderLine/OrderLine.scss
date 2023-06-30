@@ -1,0 +1,16 @@
+@import '../../scss/variables';
+
+.orderLine {
+    &__profit {
+        color: $green;
+    }
+
+    &__min {
+        color: red;
+    };
+
+    &__coin {
+        color: $primary;
+    }
+}
+

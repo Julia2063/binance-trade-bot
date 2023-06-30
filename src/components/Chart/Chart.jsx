@@ -23,6 +23,7 @@ ChartJS.register(
 );
 
 const tooltipLine = {
+  
   id: 'tooltipLine',
   beforeDraw: (chart) => {
     
@@ -34,7 +35,7 @@ const tooltipLine = {
         ctx.beginPath();
         ctx.setLineDash([5, 7]);
         ctx.moveTo(activePoint.element.x, chart.chartArea.top);
-        ctx.lineTo(activePoint.element.x,chart.chartArea.bottom);
+        ctx.lineTo(activePoint.element.x, chart.chartArea.bottom);
         ctx.lineWidth = 2;
         ctx.strokeStyle = '#F3BA2F';
         ctx.stroke();
@@ -47,6 +48,9 @@ const tooltipLine = {
 export const options = {
   
   responsive: true,
+  interaction: {
+    intersect: false,
+  },
   
   plugins: {
     
