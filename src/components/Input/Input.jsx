@@ -16,7 +16,12 @@ function Input ({ value, setValue, selectValues, disabled, className }) {
     useOnClickOutside(inputRef, () => setIsSelectOpen(false));
 
     return (
-        <div className={cn("input", className, {'input--open':  isSelectOpen})}  ref={inputRef}>
+     
+      <div 
+        className={cn("input", className, {'input--open':  isSelectOpen})}  
+        ref={inputRef}
+      > 
+        <label>
             {value}
             <button 
                 className={cn("input__button1", {
@@ -29,7 +34,8 @@ function Input ({ value, setValue, selectValues, disabled, className }) {
                   disabled={disabled}
                 >
                     <TbCaretDown width={11} height={20}/>
-                </button>
+            </button>
+        </label>
                 {isSelectOpen && (
                     <div className={cn('input__drop addBotsForm__input__drop', {'input__drop--open': isSelectOpen})} >
                       {selectValues.slice(1).map(el => {

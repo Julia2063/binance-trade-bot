@@ -49,7 +49,7 @@ function Exchanges({ setTabIndex }) {
     };
 
     useEffect(() => {
-        if(user.balanceUSDT === 0 && user.BinanceApiKey.length > 0) {
+        if(user.balanceUSDT === 0 && user.BinanceApiKey.length > 0 && user.error.length === 0) {
             getBalance();
         };
     }, [user.BinanceApiKey]);

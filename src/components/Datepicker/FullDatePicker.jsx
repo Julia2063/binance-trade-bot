@@ -13,7 +13,7 @@ import Input from "../Input/Input";
 import CustomButton from "../CustomButton/CustomButton";
 
 
-function FullDatePicker({ setStart, setEnd, handleModal }) { 
+function FullDatePicker({ setStart, setEnd, handleModal, handleGetInformations, profits }) { 
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   
@@ -37,7 +37,7 @@ function FullDatePicker({ setStart, setEnd, handleModal }) {
 
   const onChangeRange = (dates) => {
     const [start, end] = dates;
-  
+    setPeriod(selectValues[0]);
     setStartDate(start);
     setEndDate(end);
   };
@@ -79,17 +79,19 @@ function FullDatePicker({ setStart, setEnd, handleModal }) {
   useEffect(() => {
     switch(period){
       case 'Today':
-        setStartDate(new Date());
+        setStartDate(startOfDay(new Date()));
         setEndDate(new Date());
         break;
       case '3 Days':
         setStartDate(startOfDay(new Date(new Date().setDate(new Date().getDate() - 2))) );
         setEndDate(new Date());
+        setIsEndDateChanged(true);
         break;
 
       case '7 Days':
         setStartDate(startOfDay(new Date(new Date().setDate(new Date().getDate() - 6))));
         setEndDate(new Date());
+        setIsEndDateChanged(true);
         break;
 
       case 'All':
@@ -112,7 +114,11 @@ function FullDatePicker({ setStart, setEnd, handleModal }) {
   const handleSetDate = () => {
     setStart(startDate);
     setEnd(endDate);
+    if (profits.length === 0) {
+      handleGetInformations();
+    };
     handleModal();
+    
   };
 
   console.log(startDate, endDate);
@@ -125,7 +131,10 @@ function FullDatePicker({ setStart, setEnd, handleModal }) {
       <div className="datepicker__item">
         <DatePicker
           selected={startDate}
-          onChange={!isEndDateChanged ? onChangeRange : (date) => setStartDate(date)}
+          onChange={!isEndDateChanged ? onChangeRange : (date) => {
+            setStartDate(date);
+            setPeriod(selectValues[0]);
+          } }
           selectsStart
           startDate={startDate}
           endDate={endDate}
@@ -196,14 +205,17 @@ function FullDatePicker({ setStart, setEnd, handleModal }) {
           inline />
         <DatePicker
           selected={isEndDateChanged ? '' : endDate}
-          onChange={(date) => setEndDate(date)}
+          onChange={(date) => {
+             setEndDate(date);
+            setPeriod(selectValues[0]);
+          }}
           selectsEnd
           disabledKeyboardNavigation
-          startDate={isEndDateChanged ? null : startDate ? startDate : new Date().setMonth(new Date().getMonth() + 1)}
+          startDate={isEndDateChanged ? period !== 'Choose -' ? endDate : null : startDate ? startDate : new Date().setMonth(new Date().getMonth() + 1)}
           endDate={isEndDateChanged ? null : endDate}
-          maxDate={startDate ? null : new Date().setMonth(new Date().getMonth() + 1)}
-          minDate={startDate ? startDate : new Date().setMonth(new Date().getMonth() + 1)}
-          excludeDates={startDate ? [] : [new Date().setMonth(new Date().getMonth() + 1)]}
+          maxDate={startDate ? period !== 'Choose -' ? endDate : null : new Date().setMonth(new Date().getMonth() + 1)}
+          minDate={startDate ? period !== 'Choose -' ? endDate : startDate : new Date().setMonth(new Date().getMonth() + 1)}
+          excludeDates={startDate ?  [] : [new Date().setMonth(new Date().getMonth() + 1)]}
           renderCustomHeader={({
             date, changeYear, changeMonth,
           }) => (

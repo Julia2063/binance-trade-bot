@@ -392,10 +392,6 @@
   top: 0;
 }
 
-
-
-
-
 .react-datepicker__day-names,
 .react-datepicker__week {
   white-space: nowrap;
@@ -419,9 +415,6 @@
   line-height: 18px;
 
   margin-bottom: 20px;
-
-
-
 }
 .react-datepicker__day,
 .react-datepicker__time-name {
@@ -745,15 +738,15 @@
   vertical-align: -0.125em;
 }
 
-.react-datepicker__day--outside-month {
-  color: $dark-gray;
-  pointer-events: none;
-}
-
 .react-datepicker__day--range-start,
 .react-datepicker__day--range-end,
 .react-datepicker__day--selected
  {
   background: $primary;
   color: $white;
+}
+
+.react-datepicker__day--outside-month {
+  color: $dark-gray;
+  pointer-events: none;
 }

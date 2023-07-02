@@ -22,13 +22,14 @@ ChartJS.register(
   Legend
 );
 
+
+
 const tooltipLine = {
   
   id: 'tooltipLine',
   beforeDraw: (chart) => {
     
     if(chart.tooltip._active && chart.tooltip._active.length) {
-        
         const ctx = chart.ctx;
         ctx.save();
         const activePoint = chart.tooltip._active[0];
@@ -44,17 +45,43 @@ const tooltipLine = {
   }
 };
 
+const getRadius = {
+ id: 'getRadius',
+ afterDraw: (chart) => {
+
+    if(chart.tooltip._active[0]) {
+      const { ctx } = chart;
+      ctx.save();
+      const activePoint = chart.tooltip._active[0];
+      const datapoint = activePoint.index;
+      const datasetIndex = activePoint.datasetIndex;
+
+      const xPoint = chart.getDatasetMeta(datasetIndex).data[datapoint].tooltipPosition().x;
+      switch (true) {
+        case chart.chartArea.right - xPoint < chart.tooltip.width :
+          chart.options.plugins.tooltip.cornerRadius = {topLeft: 10, topRight: 10, bottomLeft: 10, bottomRight: 0};
+          chart.options.plugins.tooltip.xAlign = 'right';
+          chart.update();
+          break;
+         
+        default: 
+          chart.options.plugins.tooltip.cornerRadius = {topLeft: 10, topRight: 10, bottomRight: 10, bottomLeft: 0 };
+          chart.options.plugins.tooltip.xAlign = 'left +';
+          chart.update();
+          break;
+        }}}
+};
+
 
 export const options = {
-  
+ 
   responsive: true,
   interaction: {
     intersect: false,
   },
   
   plugins: {
-    
-    title: {
+      title: {
       display: true,
       align: 'start',
       text: 'Statistics',
@@ -84,13 +111,14 @@ export const options = {
             fillStyle: dataset.backgroundColor,
             strokeStyle: dataset.borderColor,
             pointStyle: 'circle',
-            
+
           }))
         }
       }
   },
   
     tooltip: {
+  
       titleFont: {
         size: 12,
         lineHeight: '18px',
@@ -101,15 +129,14 @@ export const options = {
         lineHeight: '18px',
         weight: 400,
       },
-      
+      position: "nearest",
       displayColors: false,
       backgroundColor: '#1D4927',
       caretSize: 0,
       yAlign: 'bottom',
-      xAlign: 'left +',
       
+  
       caretPadding: 10,
-      cornerRadius: {topLeft: 10, topRight: 10, bottomRight: 10, },
       padding: 10,
       colorBox: false,
 
@@ -143,7 +170,7 @@ export const options = {
         ticks: {
             color: '#F5F5F5',
             callback: function(value, index, ticks) {
-                return value + '$' ;
+              return value + '$' ;
             }
         },
         grid: {
@@ -215,6 +242,6 @@ export function Chart(props) {
   ],
 };
 
-  return <div style={{ width: '95%'}}>  <Line plugins={[tooltipLine]} options={options} data={data} {...props}/> </div>
+  return <div style={{ width: '100%'}}>  <Line  id="myChart" plugins={[tooltipLine, getRadius]} options={options} data={data} {...props}/> </div>
  
 }

@@ -53,7 +53,7 @@ function Dashboard() {
                 .then(res => {
             onSnapshot(doc(db, "orders", user.idPost), (doc) => {
               if(doc.data()) {
-                setGetedOrders(doc.data() ? Object.entries(doc.data()).sort((a, b) => a[1].created_at - b[1].created_at) : []);
+                setGetedOrders(doc.data() ? Object.entries(doc.data()).sort((a, b) => b[1].created_at - a[1].created_at) : []);
               }
              
             });    
@@ -105,7 +105,7 @@ function Dashboard() {
         const perideIncome = profits.map(el => {
                         
           return [new Date([el[0].slice(0, 4), el[0].slice(4, 6), el[0].slice(6, 8)].join('/') + (` ${el[0].slice(8)}:00`)), el[1]]
-          }).filter(el => (start?.toString().length > 0 ? el[0] > start : el[0]) && (end?.toString().length > 0 ? el[0] <= new Date(end).setDate(end?.getDate() + 1) : el[0])).map(el => el[1]).reduce((a, b) => a + b, 0);
+          }).filter(el => (start?.toString().length > 0 ? el[0] >= start : el[0]) && (end?.toString().length > 0 ? el[0] <= new Date(end).setDate(end?.getDate() + 1) : el[0])).map(el => el[1]).reduce((a, b) => a + b, 0);
           setIncome(perideIncome.toFixed(2));
           setIncomePerc((perideIncome/ user.tradingLimit * 100).toFixed(2));
 
@@ -221,7 +221,6 @@ function Dashboard() {
               <div className='dashboard__ordersSection__table__item dashboard__ordersSection__table__title'>
                <div>Date</div>
                <div>Time</div>
-               <div>Buy/Sell</div>
                <div>Coin</div>
                <div>Buy QTY</div>
                <div>Buy Quote QTY</div>
@@ -323,7 +322,13 @@ function Dashboard() {
               isModal={isModal}
               className="dashboard__datepicker"
               message={
-                <FullDatePicker setStart={setStart} setEnd={setEnd} handleModal={handleModal} />
+                <FullDatePicker 
+                  setStart={setStart} 
+                  setEnd={setEnd} 
+                  handleModal={handleModal} 
+                  handleGetInformations={handleGetInformations}
+                  profits={profits}
+                />
               }
             />
         </div>

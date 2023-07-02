@@ -2,11 +2,12 @@
 
 .bots {
     &__container {
-    gap: 80px;
+    gap: 40px;
   }
 
   &__row{
     padding: 0;
+    width: 100%;
     
 
     & > * {
@@ -15,13 +16,11 @@
     }
   }
 
-  &__col {
-    &:last-child {
+  &__actions {
       display: flex;
       justify-content: end;
       align-items: center;
       gap: 20px;
-    }
   }
 
   &__tabs {
@@ -42,7 +41,7 @@
     }
 
     &__tabPanel {
-      padding-top: 80px;
+     
 
       &__title {
         margin-bottom: 40px;

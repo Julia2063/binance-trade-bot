@@ -42,21 +42,12 @@ function Bots({ setTabIndex }) {
     const handleTabs = (event) => {
       setActiveTab(event.currentTarget.title);
     };
-
-    console.log(user.status);
     
     return (
         <div className="work-page__container bots__container">
-        <div className="row bots__row">
-            <div className="col-2 bots__col">
-                <ElementWithExplain title="Profit"/>
-                <div>$0.00</div>
-            </div>
-            <div className="col-2 bots__col">
-                <div>Tot. Balances</div>
-                <div>$0.00</div>
-            </div>
-            <div className="col-8 bots__col">
+        
+        
+            <div className="bots__actions">
                 <BellAttention isAttention/>
                {user.tradingLimit === 0 && 
                <CustomButton 
@@ -66,7 +57,7 @@ function Bots({ setTabIndex }) {
                   handleClick={handleAddBot}
                 />} 
             </div>
-        </div>
+       
 
         <div className="row bots__row">
            <div className="bots__tabs">
@@ -110,7 +101,7 @@ function Bots({ setTabIndex }) {
                       <div className='col-2 center'>Action</div>
                     </div>
                      {user.tradingLimit > 0 &&  
-                       <Bot setIsModal={setIsModal} setIsUpdateLimit={setIsUpdateLimit} />
+                       <Bot setIsModal={setIsModal} setIsUpdateLimit={setIsUpdateLimit} setTabIndex={setTabIndex} />
                      }
                 </div>
 

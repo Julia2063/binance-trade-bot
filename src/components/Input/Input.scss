@@ -12,6 +12,11 @@
   
     position: relative;
 
+    & label {
+        width: 100%;
+        cursor: pointer;
+    }
+
     &--dark {
         background: $bg-5;
         

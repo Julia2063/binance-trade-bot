@@ -11,7 +11,7 @@ import { updateFieldInDocumentInCollection } from '../../helpers/firebaseConfigA
 import { useEffect } from 'react';
 
 
-function Bot({ setIsUpdateLimit, setIsModal}) {
+function Bot({ setIsUpdateLimit, setIsModal, setTabIndex}) {
     const { user } = useContext(AppContext);
     const [on, setOn] = useState(false);
 
@@ -62,7 +62,7 @@ function Bot({ setIsUpdateLimit, setIsModal}) {
                     >
                         <FaEdit />
                     </button>
-                    <button className="col">
+                    <button className="col" onClick={() => setTabIndex(0)}>
                         < BsFillBarChartLineFill  />
                     </button>
                 </div>
