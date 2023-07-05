@@ -4,7 +4,7 @@
   * Author: Themesflat
   * Author URI: http://www.themesflat.com
 */
-@import "../bootstrap/css/bootstrap.min.css";
+
 @import "../../assets/style.css";
 @import "../dist/aos.css";
 @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css");
@@ -74,9 +74,7 @@ a {
   font-size: 16px;
   color: var(--onsurface);
 }
-a:hover {
-  color: var(--primary);
-}
+
 
 button {
   color: var(--onsurface);
@@ -394,12 +392,6 @@ h6,
   padding-top: 24px;
 }
 
-.container {
-  max-width: 1440px;
-  width: 100%;
-  margin: auto;
-}
-
 .row > * {
   padding-left: 15px;
   padding-right: 15px;
@@ -565,9 +557,7 @@ body[data-magic-cursor=hide] .mouse-cursor {
   visibility: visible;
   background: var(--surface);
 }
-.header .header__body {
-  padding: 0 17px;
-}
+
 @media only screen and (max-width: 767px) {
   .header .header__body {
     padding: 0;
@@ -590,11 +580,7 @@ body[data-magic-cursor=hide] .mouse-cursor {
   align-items: center;
   justify-content: flex-start;
 }
-.header .header__left .main-nav .menu li {
-  position: relative;
-  transition: 0.3s all ease-in-out;
-  padding: 13px 16px;
-}
+
 .header .header__left .main-nav .menu li a {
   position: relative;
   display: block;
@@ -606,12 +592,7 @@ body[data-magic-cursor=hide] .mouse-cursor {
 .header .header__left .main-nav .menu li a svg.s1 {
   margin-top: -5px;
 }
-.header .header__left .main-nav .menu li:hover, .header .header__left .main-nav .menu li.current-menu-item, .header .header__left .main-nav .menu li.current-item {
-  background: var(--primary);
-}
-.header .header__left .main-nav .menu li:hover > a, .header .header__left .main-nav .menu li.current-menu-item > a, .header .header__left .main-nav .menu li.current-item > a {
-  color: #fff;
-}
+
 .header .header__left .main-nav .menu li .sub-menu {
   padding: 16px;
   background: var(--bg);
@@ -5160,6 +5141,7 @@ body[data-magic-cursor=hide] .mouse-cursor {
   display: inline-block;
   position: relative;
   overflow: hidden;
+  border: none;
 }
 .btn-action:after {
   background: linear-gradient(90deg, rgba(255, 255, 255, 0.13) 0px, rgba(255, 255, 255, 0.13) 77%, rgba(255, 255, 255, 0.5) 92%, rgba(255, 255, 255, 0));
@@ -6510,11 +6492,7 @@ body[data-magic-cursor=hide] .mouse-cursor {
 .footer.style-2 .footer__main {
   padding: 0;
 }
-.footer.style-2 .footer__main .info {
-  border-right: 1px solid var(--line);
-  padding-top: 46px;
-  height: 100%;
-}
+
 @media only screen and (max-width: 1200px) {
   .footer.style-2 .footer__main .info {
     padding-bottom: 50px;
@@ -6545,12 +6523,7 @@ body[data-magic-cursor=hide] .mouse-cursor {
     padding-bottom: 50px;
   }
 }
-.footer.style-2 .footer__main .footer-contact {
-  border-left: 1px solid var(--line);
-  padding-top: 53px;
-  padding-left: 109px;
-  padding-bottom: 62px;
-}
+
 @media only screen and (max-width: 1200px) {
   .footer.style-2 .footer__main .footer-contact {
     border-top: 1px solid var(--line);
