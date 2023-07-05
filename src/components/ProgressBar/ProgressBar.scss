@@ -1,0 +1,40 @@
+@import '../../scss/variables';
+
+.progressBar {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+
+    color: $white;
+
+    margin-bottom: 40px;
+
+    &__title {
+        font-weight: 600;
+        font-size: 20px;
+        line-height: 30px;
+    }
+
+    &__price {
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 27px;
+    }
+
+    &__item {
+        height: 16px;
+
+        width: 600px;
+        background: #414245;
+
+        border-radius: 40px;
+
+        & div {
+            height: 16px;
+
+            background: $primary;
+            border-radius: 40px;
+        }
+    }
+}

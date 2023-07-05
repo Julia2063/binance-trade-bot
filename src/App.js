@@ -1,8 +1,8 @@
 import React, {useContext, useEffect, useState} from 'react';
 import AOS from 'aos';
 import {Route, Routes, useLocation, useNavigate} from 'react-router-dom';
-import Header from './components/header';
-import Footer from './components/footer';
+import Header from './components/Header/Header';
+import Footer from './components/Footer/Footer';
 import '../src/assets/font/font-awesome.css'
 import routes from './pages';
 import Page404 from './pages/404';

@@ -30,7 +30,7 @@
   --bg1: #fff;
   --onsurface: #23262f;
   --surface: #f7f7f7;
-  --line: #e5e5e5;
+  --line: #313131;
   --text: #777e90;
   --second: #58bd7d;
   
@@ -41,7 +41,7 @@
   --bg1: #222630;
   --onsurface: #fff;
   --surface: #18191d;
-  --line: #23262f;
+  --line: #313131;
   --text: #b1b5c3;
 }
 body {
@@ -78,9 +78,7 @@ a {
   font-weight: 700;
   font-size: 16px;
   color: var(--onsurface);
-  &:hover {
-    color: var(--primary);
-  }
+
 }
 
 button {
@@ -334,6 +332,11 @@ h6,
   max-width: 1440px;
   width: 100%;
   margin: auto;
+  padding: 0 100px;
+
+  &--layout {
+    padding: 0;
+  }
 }
 
 /* .row > * {
@@ -635,5 +638,14 @@ input:checked + .slider:after {
   & svg {
       fill: $color-main2;
   }
+}
+
+h2 {
+  font-weight: 500;
+  font-size: 32px;
+  line-height: 48px;
+
+  margin-bottom: 50px;
+
 }
 

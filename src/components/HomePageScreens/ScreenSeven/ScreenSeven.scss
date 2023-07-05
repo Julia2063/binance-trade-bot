@@ -1,0 +1,28 @@
+@import '../../../scss/variables';
+
+.screenSeven {
+    background: $white;
+
+    & .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    & h2 {
+        color: #000;
+    }
+
+    &__description {
+        text-align: center;
+
+        font-weight: 400;
+        font-size: 24px;
+        line-height: 36px;
+        color: #000;
+
+        width: 60%;
+
+        margin-bottom: 70px;
+    }
+}

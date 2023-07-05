@@ -1,6 +1,3 @@
-import HomeOne from "./HomeOne";
-import HomeTwo from "./HomeTwo";
-import HomeThree from "./HomeThree";
 import BuyCrypto from "./BuyCrypto";
 import BuyCryptoConfirm from "./BuyCryptoConfirm";
 import BuyCryptoDetails from "./BuyCryptoDetails";
@@ -11,8 +8,6 @@ import SellCryptoConfirm from "./SellCryptoConfirm";
 import SellCryptoDetails from "./SellCryptoDetails";
 import Blog from "./Blog";
 import BlogGrid01 from "./BlogGrid01";
-import BlogGrid02 from "./BlogGrid02";
-import BlogList from "./BlogList";
 import BlogDetails from "./BlogDetails";
 import Wallet from "./Wallet";
 import UserProfile from "./UserProfile";
@@ -23,11 +18,10 @@ import Faq from "./Faq";
 import PrivacyPolicy from "./PrivacyPolicy";
 import Certificates from "./Certificates";
 import WorkPage from "./WorkPage";
+import HomePage from "./HomePage";
 
 const routes = [
-  { path: '/', component: <HomeOne />},
-  { path: '/home-v2', component: <HomeTwo />},
-  { path: '/home-v3', component: <HomeThree />},
+  { path: '/', component: <HomePage />},
   { path: '/buy-crypto-select', component: <BuyCrypto />},
   { path: '/buy-crypto-confirm', component: <BuyCryptoConfirm />},
   { path: '/buy-crypto-details', component: <BuyCryptoDetails />},
@@ -38,8 +32,8 @@ const routes = [
   { path: '/sell-crypto-details', component: <SellCryptoDetails />},
   { path: '/blog-default', component: <Blog />},
   { path: '/blog-grid-v1', component: <BlogGrid01 />},
-  { path: '/blog-grid-v2', component: <BlogGrid02 />},
-  { path: '/blog-list', component: <BlogList />},
+ 
+ 
   { path: '/blog-details', component: <BlogDetails />},
   { path: '/wallet', component: <Wallet />},
   { path: '/user-profile', component: <UserProfile />},

@@ -1,0 +1,11 @@
+@import '../../scss/variables';
+
+.pageNavLink {
+    padding: 10px 20px;
+    border: 1px solid transparent;
+    border-radius: 24px;
+
+    &--active {
+        border: 1px solid $primary;
+    }
+}

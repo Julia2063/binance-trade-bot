@@ -1,0 +1,57 @@
+@import '../../../scss/variables';
+
+.screenSix {
+    flex-direction: column;
+    gap: 40px;
+
+    align-items: center;
+
+    & ul {
+        padding-left: 20px;
+        list-style-type:disc;
+    }
+
+    & li {
+        list-style-type:disc;
+
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 22px;
+
+        margin-bottom: 15px;
+    }
+
+    &__date {
+      display: flex;
+      align-items: baseline;
+      gap: 15px; 
+
+      margin-bottom: 40px;
+
+      &__q {
+        height: 67px;
+        width: 67px;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        background: linear-gradient(230.53deg, #3B65B2 0%, #532EB1 100%);
+        border-radius: 12px;
+
+        font-weight: 600;
+        font-size: 32px;
+        line-height: 38px;
+        color: $white;
+    }  
+
+    &__year {
+        font-weight: 500;
+        font-size: 20px;
+        line-height: 24px;
+        color: $white;
+    }
+    }
+
+    
+}

@@ -34,7 +34,7 @@
     "react-transition-group": "^4.4.2",
     "reactstrap": "^9.1.5",
     "sass": "^1.50.0",
-    "swiper": "^8.1.1",
+    "swiper": "^10.0.3",
     "use-timer": "^2.0.1",
     "web-vitals": "^2.1.4"
   },

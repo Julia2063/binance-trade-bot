@@ -1,0 +1,40 @@
+@import '../../../scss/variables';
+
+.screenNine {
+    background: var(--bg);
+
+    flex-direction: column;
+    padding-bottom: 0 !important;
+
+    gap: 80px;
+
+    & .container {
+        display: flex;
+        flex-direction: column;
+
+        align-items: center;
+    }
+
+    &__title {
+        font-weight: 600;
+        font-size: 40px;
+        line-height: 60px;
+        text-align: center;
+
+        width: 70%;
+
+        color: $white;
+        
+        margin-bottom: 40px;
+    }
+    
+
+    &__background {
+        height: 400px;
+        width: 100%;
+        background-image: url(../../../assets/images/background/waves.png);
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: bottom;
+    }
+}
