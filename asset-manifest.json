@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/binance-trade-bot/static/css/main.6b9d8e09.css",
-    "main.js": "/binance-trade-bot/static/js/main.bb6637b3.js",
+    "main.css": "/binance-trade-bot/static/css/main.ec17a029.css",
+    "main.js": "/binance-trade-bot/static/js/main.82881140.js",
     "static/media/fa-duotone-900.svg": "/binance-trade-bot/static/media/fa-duotone-900.bac7a949fdfa983ff8a5.svg",
     "static/media/fa-light-300.svg": "/binance-trade-bot/static/media/fa-light-300.676ceddb711397cb345f.svg",
     "static/media/fa-regular-400.svg": "/binance-trade-bot/static/media/fa-regular-400.ef3cf368d75e16e0a1c3.svg",
@@ -49,19 +49,20 @@
     "static/media/google.svg": "/binance-trade-bot/static/media/google.7639246233d68db769c69ff6c7aa0704.svg",
     "static/media/homePage3.svg": "/binance-trade-bot/static/media/homePage3.60d43ce35eb590f1fb0f6289c660c0fd.svg",
     "static/media/insta.svg": "/binance-trade-bot/static/media/insta.475746103d9df060fb17dea5bd965b38.svg",
-    "static/media/youtube.svg": "/binance-trade-bot/static/media/youtube.b8e971e77c5d4e8b2a25c7251c269587.svg",
+    "static/media/youtube.svg": "/binance-trade-bot/static/media/youtube.2e97b8d46feec407ea6005a86e8dea7d.svg",
     "static/media/homePage4.svg": "/binance-trade-bot/static/media/homePage4.447d6ca5fad6bdee32a967ff4529e509.svg",
     "static/media/homePage2.svg": "/binance-trade-bot/static/media/homePage2.4c343a2edd3352a5c34dcd8c0fca5a16.svg",
     "static/media/homePage6.svg": "/binance-trade-bot/static/media/homePage6.e1d434ecd4c1e85d14d7d5a7c262e3a9.svg",
     "index.html": "/binance-trade-bot/index.html",
     "static/media/twitter.svg": "/binance-trade-bot/static/media/twitter.257d500bed0a7fe7246f234c803a88c2.svg",
     "static/media/facebook.svg": "/binance-trade-bot/static/media/facebook.32d3bfd4b391fe4c40badb5309b0a1da.svg",
+    "static/media/arrow.svg": "/binance-trade-bot/static/media/arrow.699f0cc8f1d7206bc9bbce25bbcc896a.svg",
     "static/media/homePage1.svg": "/binance-trade-bot/static/media/homePage1.97b65ce897510f45a6acfd671c4c1aeb.svg",
-    "main.6b9d8e09.css.map": "/binance-trade-bot/static/css/main.6b9d8e09.css.map",
-    "main.bb6637b3.js.map": "/binance-trade-bot/static/js/main.bb6637b3.js.map"
+    "main.ec17a029.css.map": "/binance-trade-bot/static/css/main.ec17a029.css.map",
+    "main.82881140.js.map": "/binance-trade-bot/static/js/main.82881140.js.map"
   },
   "entrypoints": [
-    "static/css/main.6b9d8e09.css",
-    "static/js/main.bb6637b3.js"
+    "static/css/main.ec17a029.css",
+    "static/js/main.82881140.js"
   ]
 }
