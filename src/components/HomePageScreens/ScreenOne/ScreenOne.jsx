@@ -1,7 +1,10 @@
 import { useNavigate } from 'react-router-dom';
 import './ScreenOne.scss';
+import { useContext } from 'react';
+import { AppContext } from '../../../helpers/appContext';
 
 export const ScreenOne = () => {
+    const { user } = useContext(AppContext);
 
     const navigate = useNavigate();
 
@@ -18,7 +21,7 @@ export const ScreenOne = () => {
                     </h1>
                     <button 
                       className='btn-action'
-                      onClick={() => navigate('/register')}
+                      onClick={() => navigate(user.idPost ? '/work-page' : '/register')}
                     >
                         Sign Up
                     </button>
