@@ -12,7 +12,7 @@ export const ScreenFive = () => {
               <Timer date={new Date('2023/09/10')} />
               
               <ProgressBar proc={'5%'} />
-              <button className='btn-action'>
+              <button className='btn-action btn-action--disabled' disabled>
                 Comming soon
               </button>
             </div>
