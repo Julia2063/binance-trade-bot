@@ -53,10 +53,14 @@
         width: 300px;
       }
 
-      .col-xl-4, .col-2, .col-3 {
+      .col-xl-4, .col, .col-3 {
         display: flex;
         flex-direction: column;
         gap: 25px;
+      }
+
+      .col {
+        opacity: 0;
       }
 
       &__text {

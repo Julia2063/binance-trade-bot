@@ -58,6 +58,7 @@
         }
   
         &--open {
+            
             & svg {
                transition: all 0.3s;
                transform: rotate(180deg);

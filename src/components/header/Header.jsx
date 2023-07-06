@@ -15,9 +15,10 @@ import { PageNavLink } from '../PageNavLink/PageNavLink';
 
 const Header = ({ background }) => {
     const [scroll, setScroll] = useState(false);
+    const { user } = useContext(AppContext);
 
 
-        useEffect(() => {
+    useEffect(() => {
         window.addEventListener("scroll", () => {
             setScroll(window.scrollY > 300);
         });
@@ -35,14 +36,10 @@ const Header = ({ background }) => {
     const [activeIndex, setActiveIndex] = useState(null);
     const handleDropdown = index => {
         setActiveIndex(index);
-    };
-
-    
-    const {user} = useContext(AppContext);
-   
+    };   
    
 
-    const menu = [ ['Home', '/'], ['Trading', '/work-page'] , ['Pricing', '/jdrj'] , ['About us', '/jrjy']]
+    const menu = [ ['Home', '/'], ['Trading', user.idPost ? '/work-page' : '/login'] , ['Pricing', '/jdrj'] , ['About us', '/jrjy']]
 
 
    

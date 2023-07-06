@@ -9,11 +9,11 @@ export const ScreenFive = () => {
             <div className='container'> 
               <h2>Token presale</h2>
               
-              <Timer date={new Date('2023/08/06')} />
+              <Timer date={new Date('2023/09/10')} />
               
-              <ProgressBar proc={'70%'} />
+              <ProgressBar proc={'5%'} />
               <button className='btn-action'>
-                Buy
+                Comming soon
               </button>
             </div>
             

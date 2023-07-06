@@ -1,0 +1,44 @@
+@import '../../scss/variables';
+
+.infoDrop {
+    width: 100%;
+    font-weight: 400;
+    padding: 20px 0;
+    border-top: 1px solid $color-main1;
+
+    & label {
+         width: 100%;
+    }
+
+    &__title {
+        font-size: 28px;
+        line-height: 42px;
+
+        color: #000;
+
+        display: flex;
+        justify-content: space-between;
+    }
+
+    &__toggler {
+        height: max-content;
+        border: none;
+        background: none;
+
+        &__arrow {
+            transition: all 0.3s;
+            &--open {
+                   
+                   transform: rotate(180deg);
+            }
+        }
+    }
+
+    &__text {
+        font-size: 20px;
+        line-height: 30px;
+
+        margin-bottom: 10px;
+    }
+
+}

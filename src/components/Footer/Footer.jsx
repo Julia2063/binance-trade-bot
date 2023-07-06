@@ -94,7 +94,7 @@ function Footer(props) {
     return (
 
         <footer className="footer style-2">
-            <div className="container container--layout">
+            <div className="container">
                 <div className="footer__main">
                 <div className="row">
                     <div className="col-xl-4 col-md-6">
@@ -102,7 +102,11 @@ function Footer(props) {
                           <img src={logo} alt="" />
                         </Link>
                         <div className='footer__main__text'>
-                            The leading NFT Marketplace on EasyCoinHome to the next generation of digital creators. Discover the best NFT collections.
+                        Auto buy low and sell
+                        high
+                        with exclusive crypto 
+                        trading
+                        bot
                         </div>
                         <ul className="list-social">
                             {
@@ -118,7 +122,7 @@ function Footer(props) {
 
                     </div>
 
-                    <div className="col-2">
+                    <div className="col">
                         <h6>Features</h6>
                         <div className='footer__main__linkList'>
                             {features.map(f => (
@@ -126,7 +130,7 @@ function Footer(props) {
                             ))}
                         </div>
                     </div>
-                    <div className="col-2">
+                    <div className="col">
                         <h6>About Us</h6>
                         <div className='footer__main__linkList'>
                             {aboutUs.map(a => (
