@@ -29,45 +29,6 @@ function Footer(props) {
         },
     ]);
 
-    const features = [
-        {
-            title: "Automated Trading",
-            path: '#'
-        },
-        {
-            title: "Technical Indicators",
-            path: '#'
-        },
-        {
-            title: "Bots Marketplace",
-            path: '#'
-        },
-        {
-            title: "Help",
-            path: '#'
-        },
-    ];
-
-    const aboutUs = [
-        {
-            title: "Latest",
-            path: '#'
-        },
-        {
-            title: "Pricing",
-            path: '#'
-        },
-        {
-            title: "Contact Us",
-            path: '#'
-        },
-        {
-            title: "More about EasyCoin",
-            path: '#'
-        },
-    ];
-
-
     const [isVisible, setIsVisible] = useState(false);
 
     const scrollToTop = () => {
@@ -122,23 +83,12 @@ function Footer(props) {
 
                     </div>
 
-                    <div className="col">
-                        <h6>Features</h6>
-                        <div className='footer__main__linkList'>
-                            {features.map(f => (
-                                <Link to={f.path} key={f.title}>{f.title}</Link>
-                            ))}
-                        </div>
+                    <div className="col-3 col-md-6">
+                        <Link>Terms & Conditions</Link>
+                        <Link>Privacy Policy</Link>
                     </div>
-                    <div className="col">
-                        <h6>About Us</h6>
-                        <div className='footer__main__linkList'>
-                            {aboutUs.map(a => (
-                                <Link to={a.path} key={a.title}>{a.title}</Link>
-                            ))}
-                        </div>
-                    </div>
-                    <div className="col-3">
+
+                    <div className="col-xl-4 col-md-6 footer__letter">
                         <h5>Newsletters</h5>
                         <p>
                         Subscribe our newsletter to get more information.
@@ -151,19 +101,15 @@ function Footer(props) {
                             />
                             <button type="submit" className="btn-action">Submit</button>
                         </form>
-                        
-                   
                     </div>
+                    
+
                 </div>
                 </div>
             </div>
             <div className="container-fluid">
                 <div className="footer__bottom">
-                <span>Terms & Conditions</span>
-                <span>
                     ©{new Date().getFullYear()} Designed by NonameDigital. All rights reserved
-                </span>
-                <span>Privacy Policy</span>
                 </div>
             </div>
 

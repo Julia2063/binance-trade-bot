@@ -236,6 +236,12 @@ function Login(props) {
     }
 
     const handleSendEmailResetPassword = async () => {
+      if(!regInfo.email) {
+        setShowNotification(true);
+        setNotificationTitle('Error');
+        setNotificationMessage('Please enter your email');
+        return;
+      }
       try {
           await sendPasswordResetEmail(auth, regInfo.email);
 

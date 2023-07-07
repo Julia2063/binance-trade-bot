@@ -664,6 +664,7 @@ h2 {
     color: $light-grey;
   }
 }
+
 .btn-action:after {
   background: linear-gradient(90deg, rgba(255, 255, 255, 0.13) 0px, rgba(255, 255, 255, 0.13) 77%, rgba(255, 255, 255, 0.5) 92%, rgba(255, 255, 255, 0));
   content: "";
@@ -675,9 +676,11 @@ h2 {
   transition: all 0.7s ease 0s;
   width: 200%;
 }
+
 .btn-action:hover {
   color: #fff;
 }
+
 .btn-action:hover:after {
   left: -30%;
   opacity: 1;

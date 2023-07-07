@@ -42,12 +42,12 @@ function WorkPage() {
 
     useEffect(() => {
         if(!user.idPost) {
-            setTabIndex(1);
+            setTabIndex(0);
         } 
     }, [user]);
 
     return (
-        <div className="work-page">
+        <div className="tabs-page">
                 <Tabs selectedIndex = { tabIndex } onSelect = { ( index )  =>  setTabIndex ( index ) }>
                         <TabList>
                             {

@@ -19,6 +19,10 @@
 
   color: $white;
 
+  & .disabled {
+    font-weight: bold;
+  }
+
   &__background {
     background: $bg-5;
     height: 78px;
@@ -41,8 +45,6 @@
     background: var(--surface);
     left: 0;
     width: 100%;
-
-
   }
 
  
@@ -376,6 +378,12 @@
   &__languageToogler {
     display: flex;
     gap: 10px;
+  }
+
+  &__logout {
+    border: none;
+    background: none;
+    font-size: 30px;
   }
 }
 

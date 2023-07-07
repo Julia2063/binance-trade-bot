@@ -21,7 +21,7 @@
     }
   }
 
-  .work-page {
+  .tabs-page {
     .react-tabs {
       display: flex;
       flex-wrap: wrap;
@@ -102,6 +102,11 @@
             fill: var(--primary);
           }
         }
+
+        &.react-tabs__tab--disabled {
+          color: $color-main2;
+          cursor: default;
+        }
       }
     }
 
@@ -133,6 +138,55 @@
     }
 
   }
+
+  .user-profile {
+    &__email {
+      text-align: center;
+
+      margin-bottom: 20px;
+    }
+
+    &__title {
+      margin-bottom: 40px;
+    }
+
+    &__form {
+      width: 60%;
+      align-self: center;
+
+      background: $gray;
+      border-radius: 10px;
+
+      padding: 30px;
+
+      & input {
+        padding: 12px 20px;
+        font-size: 14px;
+        font-weight: 700;
+
+        border-radius: 12px;
+        box-shadow: none;
+        outline: none;
+        background: $bg-5;
+        border: 1px solid var(--line);
+        color: var(--onsurface);
+        width: 100%;
+
+        &:focus-visible {
+          border-color: var(--primary);
+        }
+      }
+
+      &__inputs {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+      }
+    }
+  
+  }
+
+
 
   .wallet {
     .menu-tab {
@@ -1144,474 +1198,7 @@
     }
   }
 
-  .user-profile {
-    padding: 100px 0;
 
-    .user-info {
-      padding-right: 84px;
-      margin-bottom: 39px;
-
-      @include desktop-1200 {
-        padding-right: 0;
-        width: 100%;
-      }
-      .avt {
-        width: 119px;
-        height: 119px;
-
-        position: relative;
-        margin: 0 auto;
-        overflow: hidden;
-        .custom-file-input {
-          width: 100%;
-          height: 100%;
-          color: transparent;
-          border-radius: 12px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          position: relative;
-          text-align: center;
-          cursor: pointer;
-          border: none;
-          &::-webkit-file-upload-button {
-            display: none;
-          }
-
-          &::after {
-            z-index: 99;
-            font-family: "Font Awesome 6 free";
-            font-weight: 700;
-            content: "\f030";
-            color: #fff;
-            font-size: 14px;
-            position: absolute;
-            bottom: 6px;
-            right: 0;
-            width: 29px;
-            height: 29px;
-            border-radius: 50%;
-            background: var(--primary);
-            @include flex(center, center);
-          }
-        }
-        img {
-          position: absolute;
-          z-index: 9;
-          top: 0;
-          right: 0;
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          border-radius: 50%;
-        }
-      }
-
-      .name {
-        font-family: $font-second;
-        font-weight: 600;
-        font-size: 20px;
-        margin-top: 15px;
-        margin-bottom: 9px;
-      }
-      p {
-        font-family: $font-second;
-        font-size: 12px;
-      }
-    }
-
-    .react-tabs {
-      display: flex;
-      flex-wrap: wrap;
-    }
-
-    .react-tabs__tab-list {
-
-      width: 25%;
-      border: none;
-
-      @include desktop-1200 {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-      }
-      .react-tabs__tab {
-        padding: 13px 22px 3px;
-        max-width: 260px;
-        border-radius: 1000px;
-        margin-bottom: 5px;
-        display: block;
-        border: none;
-
-        &:focus:after {
-          display: none;
-        }
-        h6 {
-          display: flex;
-          align-items: center;
-        }
-        i {
-          margin-right: 7px;
-          font-size: 20px;
-          path {
-            fill: var(--primary);
-          }
-        }
-        &.react-tabs__tab--selected {
-          background: var(--primary);
-          h6 {
-            color: #fff;
-          }
-          i {
-            color: #fff;
-          }
-        }
-      }
-    }
-
-    .react-tabs__tab-panel {
-      padding-left: 69px;
-      padding-right: 91px;
-      width: 75%;
-
-      position: relative;
-
-      @include desktop-1200 {
-        padding: 0;
-        margin-top: 50px;
-
-        &::before {
-          display: none;
-        }
-      }
-
-      &::before {
-        @include absolute;
-        height: 100%;
-        width: 1px;
-        background: var(--line);
-      }
-      .profile {
-        form {
-          h4 {
-            margin-bottom: 20px;
-          }
-          h6 {
-            margin-bottom: 50px;
-
-            &.two {
-              margin-top: -4px;
-              margin-bottom: 23px;
-
-              @include mobile {
-                margin-top: 50px;
-              }
-            }
-          }
-          .form-group {
-            margin: 0 -10px 46px;
-
-            input {
-              width: 50%;
-              border-radius: 8px;
-              margin: 0 10px;
-              padding: 11px 20px;
-              background: var(--bg1);
-              border: 1px solid var(--line);
-              color: var(--onsurface);
-            }
-            select {
-              width: 50%;
-              border-radius: 8px;
-              margin: 0 10px;
-              padding: 11px 20px;
-              background: var(--bg1);
-              border: 1px solid var(--line);
-              color: var(--onsurface);
-            }
-            .sl {
-              width: 50%;
-              display: flex;
-              margin: 0 10px;
-              select {
-                margin: 0;
-                margin-right: 10px;
-                max-width: 120px;
-
-                &.gt {
-                  max-width: 208px;
-                  width: 208px;
-                  margin-right: 8px;
-                }
-              }
-              input {
-                width: 100%;
-                margin: 0;
-
-                &.fc-datepicker {
-                  width: 50%;
-                  margin-left: 8px;
-                }
-              }
-            }
-
-            @include mobile {
-              flex-wrap: wrap;
-              margin-bottom: 20px;
-
-              &.s1 {
-                margin-bottom: 0;
-              }
-
-              input {
-                width: 100%;
-                margin-bottom: 20px;
-              }
-
-              .sl {
-                width: 100%;
-              }
-              #exampleFormControlSelect2 {
-                width: 100%;
-                margin-bottom: 20px;
-              }
-            }
-          }
-
-          .bt {
-            .check-box__switcher {
-              font-size: inherit;
-              appearance: none;
-              height: 20px;
-              width: 40px;
-              border-radius: 1em;
-              background-color: var(--line);
-              background-image: url('data:image/svg+xml,%3C%3Fxml version="1.0"%3F%3E%3Csvg width="20" height="20" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg"%3E%3Ccircle cx="10" cy="10" fill="%23ffffff" r="10"/%3E%3C/svg%3E');
-              background-repeat: no-repeat;
-              background-size: auto calc(100% - 4px);
-              background-position: center left 2px;
-              transition: background-position 0.2s ease-in,
-                background-color 0s 0.1s;
-              cursor: pointer;
-            }
-
-            .check-box__switcher:checked {
-              background-position: center right 2px;
-              background-color: var(--primary);
-            }
-
-            .check-box__switcher:disabled:checked {
-              background-position: center right 2px;
-              background-color: var(--line);
-              cursor: pointer;
-            }
-
-            .check-box__switcher:disabled {
-              background-position: center left 2px;
-              background-color: var(--line);
-              cursor: pointer;
-            }
-            .left,
-            .right {
-              width: 50%;
-              padding-right: 25px;
-
-              h6 {
-                font-size: 14px;
-                text-transform: uppercase;
-                border-bottom: 1px solid var(--line);
-                padding-bottom: 16px;
-                margin-bottom: 15px;
-              }
-              ul {
-                li {
-                  display: flex;
-                  justify-content: space-between;
-                  margin-bottom: 16px;
-
-                  p {
-                    font-weight: 700;
-                    font-size: 14px;
-                    color: var(--onsurface);
-                  }
-
-                  .text {
-                    font-weight: 400;
-                    color: var(--text);
-                  }
-                }
-              }
-            }
-
-            .right {
-              padding-right: 0;
-              padding-left: 25px;
-
-              h6 {
-                text-align: left;
-              }
-            }
-
-            @include mobile {
-              flex-wrap: wrap;
-
-              .left,
-              .right {
-                width: 100%;
-                padding: 0;
-                margin-bottom: 40px;
-              }
-            }
-          }
-
-          button {
-            margin-top: 25px;
-            border: none;
-            padding: 13px 53px;
-            font-weight: 600;
-            font-family: $font-second;
-          }
-        }
-      }
-
-      .referrals,
-      .api {
-        h6 {
-          margin-bottom: 14px;
-        }
-
-        h4 {
-          margin-bottom: 12px;
-          span {
-            color: #58bd7d;
-          }
-        }
-        p {
-          text-transform: capitalize;
-        }
-
-        .main {
-          margin-top: 43px;
-          max-width: 700px;
-
-          .refe {
-            display: flex;
-            margin: 0 -15px;
-            margin-top: 21px;
-            div {
-              width: 50%;
-              margin: 0 15px;
-              position: relative;
-              p {
-                font-weight: 700;
-                color: var(--onsurface);
-                margin-bottom: 10px;
-              }
-
-              input {
-                padding: 12px 20px;
-                font-size: 14px;
-                font-weight: 700;
-
-                border-radius: 12px;
-                box-shadow: none;
-                outline: none;
-                background: var(--bg1);
-                border: 1px solid var(--line);
-                color: var(--onsurface);
-
-                &:focus-visible {
-                  border-color: var(--primary);
-                }
-              }
-              .btn-action {
-                font-size: 12px;
-                position: absolute;
-                bottom: 12px;
-                right: 12px;
-                border-radius: 4px;
-                padding: 4px 9px;
-                cursor: pointer;
-              }
-            }
-          }
-        }
-        .btn-action {
-          margin-top: 38px;
-          padding: 10px 33px;
-        }
-      }
-
-      .api {
-        h4 {
-          span {
-            color: #d33535;
-          }
-        }
-        p.mail {
-          font-weight: 700;
-          color: var(--onsurface);
-          svg {
-            margin-right: 5px;
-          }
-        }
-        .main {
-          padding: 28px 32px;
-          h6 {
-            margin-bottom: 11px;
-          }
-
-          .btn-action {
-            margin-top: 28px;
-          }
-        }
-      }
-
-      .change-pass {
-        h4 {
-          margin-bottom: 20px;
-        }
-        h6 {
-          margin-bottom: 21px;
-        }
-        form {
-          .form-group {
-            display: flex;
-            width: 100%;
-            margin: 0 -10px 20px;
-            div {
-              width: 50%;
-              margin: 0 10px;
-            }
-
-            label {
-              font-weight: 400;
-              font-size: 14px;
-              color: var(--text);
-              margin-bottom: 10px;
-            }
-            input {
-              width: 100%;
-              margin: 0;
-            }
-          }
-        }
-        button.btn-action {
-          border: none;
-          padding: 13px 53px;
-        }
-      }
-    }
-
-    @include desktop-1200 {
-      .react-tabs__tab-list {
-        width: 100%;
-      }
-      .react-tabs__tab-panel {
-        width: 100%;
-      }
-    }
-  }
 
   .mode-switcher {
     .sun {

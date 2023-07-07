@@ -20,12 +20,11 @@ import OrderLine from '../OrderLine/OrderLine';
 import cn from "classnames";
 
 function Dashboard() {
-    const { user } = useContext(AppContext);
+    const { user, profits, setProfits, getedOrders, setGetedOrders } = useContext(AppContext);
     const [start, setStart] = useState('');
     const [end, setEnd] = useState('');
 
-    const [profits, setProfits] = useState([]);
-    const [getedOrders, setGetedOrders] = useState([]);
+    
     const [orders, setOrders] = useState([]);
     const [visibleOrders, setVisibleOrders] = useState([]);
 
@@ -64,6 +63,12 @@ function Dashboard() {
             console.log(error);
         }
     };
+
+    useEffect(() => {
+      if (profits.length === 0 && user.status) {
+        handleGetInformations();
+      }
+    }, []);
 
     useEffect(() => {
       const lastOrderIndex = currentPage * ordersPerPage;
@@ -140,8 +145,8 @@ function Dashboard() {
     };
 
     return (
-        <div className="work-page__container">
-          <h1 className="work-page__title dashboard__title">
+        <div className="tabs-page__container">
+          <h1 className="tabs-page__title dashboard__title">
               <p>Dashboard</p>
               <div className='dashboard__title__control'>
                 <div className='dashboard__title__buttons'>
@@ -160,7 +165,7 @@ function Dashboard() {
                 </div>
                 <CustomButton
                   title="Refresh"
-                  customClass="dashboard__refresh"
+                  customClass="dashboard__refresh btn-action"
                   handleClick={handleGetInformations}
                   img={<TbRefresh/>}
                   disabled={!user.idPost}

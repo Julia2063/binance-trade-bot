@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useContext} from 'react';
 
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 import './Header.scss';
 import logo from '../../assets/images/icon/logo.svg';
@@ -9,13 +9,18 @@ import DarkMode from './DarkMode';
 
 import en from '../../assets/images/flags/en.svg'
 
-import {AppContext} from "../../helpers/appContext";
+import { AppContext } from "../../helpers/appContext";
 import { PageNavLink } from '../PageNavLink/PageNavLink';
+import { logOut } from '../../helpers/firebaseConfigAndControls';
+
+import { FiLogOut } from 'react-icons/fi'
 
 
 const Header = ({ background }) => {
     const [scroll, setScroll] = useState(false);
-    const { user } = useContext(AppContext);
+    const { user, setUser } = useContext(AppContext);
+
+    const navigate = useNavigate();
 
 
     useEffect(() => {
@@ -39,7 +44,15 @@ const Header = ({ background }) => {
     };   
    
 
-    const menu = [ ['Home', '/'], ['Trading', user.idPost ? '/work-page' : '/login'] , ['Pricing', '/jdrj'] , ['About us', '/jrjy']]
+    const menu = [ ['Home', '/', false], ['Trading', user.idPost ? '/work-page' : '/login', false] , ['Pricing', '/jdrj', true] , ['About us', '/jrjy', true]]
+
+    const handleLogOut = async (event) => {
+        try {
+          await logOut(event, setUser, navigate, '/login');
+        } catch (error) {
+            console.log(error);
+        }
+      };
 
 
    
@@ -66,7 +79,12 @@ const Header = ({ background }) => {
                                 {
                                     menu.map((data, idx) => (
                                         <li key={idx} className='menu-item'>
-                                            <PageNavLink to={data[1]} onClick={handleMenuActive} text={data[0]}/>
+                                            <PageNavLink 
+                                              to={data[1]} 
+                                              onClick={handleMenuActive} 
+                                              text={data[0]}
+                                              disabled={data[2]}
+                                            />
                                            
                                         </li>
                                     ))
@@ -99,8 +117,14 @@ const Header = ({ background }) => {
                         }
                         </ul>
                     </nav>
+                        {user.idPost && (
+                           <button  
+                            onClick={(event) => handleLogOut(event)} className='header__logout'
+                            >
+                                <FiLogOut />
+                            </button > 
+                        )}
                         
-
                         <div className='header__languageToogler'>
                             <img src={en} alt='en'/>
                             <span>{`English (UK)`}</span>

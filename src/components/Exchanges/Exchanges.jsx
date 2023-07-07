@@ -90,13 +90,12 @@ function Exchanges({ setTabIndex }) {
         }
         if(user.BinanceApiKey.length > 0) {
             setIsExchange(true);
-    
         }
     }, [user]);
     
     return (
-        <div className="work-page__container exchanges__container">
-           <h1 className="work-page__title">Exchanges</h1> 
+        <div className="tabs-page__container exchanges__container">
+           <h1 className="tabs-page__title">Exchanges</h1> 
            <div className="row">
                 <div className="col">
                     <div className="exchanges__label">

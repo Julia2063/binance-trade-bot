@@ -50,8 +50,8 @@ export const ScreenSix = () => {
         <section className='screenSix'>
            <h2>ROAD MAP</h2>
            <Swiper
-              slidesPerView='auto'
-              spaceBetween={40}
+              slidesPerView={3}
+              spaceBetween={60}
             
               navigation
               modules={[Navigation]}

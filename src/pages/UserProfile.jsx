@@ -1,14 +1,9 @@
 import React, {useContext, useState, useEffect} from 'react';
-import PropTypes from 'prop-types';
-import Sale01 from '../components/sale/Sale01';
 
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
-import PageTitle from '../components/pagetitle';
 import {Link, useNavigate} from 'react-router-dom';
-import img from '../assets/images/avt/avt.png'
 import {AppContext} from "../helpers/appContext";
-import ProfilePageTitle from "../components/profilepagetitle";
 import {GiConfirmed} from "react-icons/gi";
 import { 
   sendEmailVerification,
@@ -28,26 +23,34 @@ import 'react-phone-number-input/style.css'
 import PhoneInput from 'react-phone-number-input';
 import ModalReAuthenticate from '../components/modals/ModalReAuthenticate';
 
-UserProfile.propTypes = {
+import { FaUser } from "react-icons/fa";
+import { FaShareAlt } from "react-icons/fa";
+import { FaCog } from "react-icons/fa";
+import { FaLock} from "react-icons/fa";
 
-};
+import cn from 'classnames';
+import { Modal } from '../components/Modal/Modal';
+import { ReAuthForm } from '../components/ReAuthForm/ReAuthForm';
 
 function UserProfile(props) {
     const [dataCoinTab, setDataCoinTab] = useState([
         {
           id: 1,
           title: 'User Profile',
-          icon: 'fa-user'
+          icon: <FaUser />,
+          disabled: true,
         },
         {
           id: 2,
           title: 'Referrals',
-          icon: 'fa-share-nodes'
+          icon: <FaShareAlt />,
+          disabled: true,
         },
         {
           id: 3,
           title: 'API keys',
-          icon: 'fa-gear'
+          icon: <FaCog />,
+          disabled: true,
         },
         // {
         //     id: 4,
@@ -58,7 +61,8 @@ function UserProfile(props) {
         {
           id: 5,
           title: 'Change password',
-          icon: 'fa-lock'
+          icon: <FaLock />,
+          disabled: false,
         },
     ]);
 
@@ -332,59 +336,24 @@ function UserProfile(props) {
     //#endregion  
     //#region Render
     return (
-        <div>
-            <ProfilePageTitle heading='User Profile' title='User' />
 
-            <section className="user-profile flat-tabs">
-            <div className="container">
-                <div className="row">
-                <Tabs>
-                    <TabList>
-                        <div className="user-info center">
-                          {/* <form onSubmit={(e) => updateAvatarInBD(e)}>
-                            <div className="avt">
-                              <input
-                                type="file"
-                                className="custom-file-input"
-                                id="imgInp"
-                                onChange={(e) => loadUserAvatar(e)}
-                                required
-                              />
-                                <img id="blah" src={user.avatarLink.length > 0 ? user.avatarLink  : img} alt="no file" 
-                              />
-                            </div>
+        <div className="tabs-page">
+            <Tabs defaultIndex={3}>
+              <TabList>       
+                  { 
+                      dataCoinTab.map(idx => (
+                          <Tab 
+                            key={idx.id} 
+                            disabled={idx.disabled}
+                            className={cn('react-tabs__tab', { 'react-tabs__tab--disabled disabled': idx.disabled })}
+                          >
+                            {idx.icon}{idx.title}
+                          </Tab>
+                      ))
+                  }
+              </TabList>
 
-                            {isUpdateAvatarButton && (
-                              <button 
-                                type="submit" 
-                                className="btn-action mt-15"
-                              >
-                                Update avatar
-                              </button> 
-                            )}
-                            
-                          </form> */}
-                            <h6 className="name">
-                                {updatedData.fullName}
-                            </h6>
-                            <p>
-                                {updatedData.email}
-                            </p>
-                        </div>
-                        { 
-                            dataCoinTab.map(idx => (
-                              <Tab key={idx.id}>
-                                <h6 className="fs-16">
-                                  <i className={`fa ${idx.icon}`}></i>
-                                  {idx.title}
-                                </h6>
-                              </Tab>
-                            ))
-                        }
-
-                    </TabList>
-
-                    <TabPanel>
+              <TabPanel>
                       <div className="content-inner profile" >
                         <form action="#" onSubmit={(e) => handleSubmitUserData(e)}>
                           <h4>User Profile</h4>
@@ -474,84 +443,11 @@ function UserProfile(props) {
                                 LogOut
                               </button>  
                             </div>
-                            
-                            {/*<div className="form-group d-flex">*/}
-                            {/*    <select className="form-control" id="exampleFormControlSelect2">*/}
-                            {/*    <option>South Korean</option>*/}
-                            {/*    <option>Vietnamese</option>*/}
-                            {/*    <option>South Korean</option>*/}
-                            {/*    <option>South Korean</option>*/}
-                            {/*    </select>*/}
-                            {/*    <div className="sl">*/}
-                            {/*    <select*/}
-                            {/*        className="form-control gt"*/}
-                            {/*        id="exampleFormControlSelect3"*/}
-                            {/*    >*/}
-                            {/*        <option>Male</option>*/}
-                            {/*        <option>Female</option>*/}
-                            {/*    </select>*/}
-                            {/*    <input*/}
-                            {/*        className="form-control fc-datepicker"*/}
-                            {/*        placeholder="dD/MM/YY"*/}
-                            {/*        type="text"*/}
-                            {/*    />*/}
-                            {/*    </div>*/}
-                            {/*</div>*/}
-
-                            {/*<h6 className="two">Features</h6>*/}
-                            {/*<div className="bt d-flex">*/}
-                            {/*    <div className="left">*/}
-                            {/*    <h6>level 1</h6>*/}
-                            {/*    <ul>*/}
-                            {/*        <li>*/}
-                            {/*        <p>Deposit assets</p>*/}
-                            {/*        <input*/}
-                            {/*            type="checkbox"*/}
-                            {/*            className="check-box__switcher"*/}
-                            {/*            checked*/}
-                            {/*        />*/}
-                            {/*        </li>*/}
-                            {/*        <li>*/}
-                            {/*        <p>Withdraw assets</p>*/}
-                            {/*        <p className="text">Enabled $1,000,000/day</p>*/}
-                            {/*        </li>*/}
-                            {/*        <li>*/}
-                            {/*        <p>Card purchases</p>*/}
-                            {/*        <input type="checkbox" className="check-box__switcher" />*/}
-                            {/*        </li>*/}
-                            {/*        <li>*/}
-                            {/*        <p>Bank deposit</p>*/}
-                            {/*        <input type="checkbox" className="check-box__switcher" />*/}
-                            {/*        </li>*/}
-                            {/*    </ul>*/}
-                            {/*    </div>*/}
-                            {/*    <div className="right">*/}
-                            {/*    <h6>level 2</h6>*/}
-                            {/*    <ul>*/}
-                            {/*        <li>*/}
-                            {/*        <p>Fiat and Spot wallet</p>*/}
-                            {/*        <input*/}
-                            {/*            type="checkbox"*/}
-                            {/*            className="check-box__switcher"*/}
-                            {/*            checked*/}
-                            {/*        />*/}
-                            {/*        </li>*/}
-                            {/*        <li>*/}
-                            {/*        <p>Margin wallet</p>*/}
-                            {/*        <p className="text">Enabled 100x Leverage</p>*/}
-                            {/*        </li>*/}
-                            {/*    </ul>*/}
-                            {/*    </div>*/}
-                            {/*</div>*/}
-
-                            {/*<button type="submit" className="btn-action">*/}
-                            {/*    Update Profile*/}
-                            {/*</button>*/}
                             </form>
                         </div>
-                    </TabPanel>
+              </TabPanel>
 
-                    <TabPanel>
+              <TabPanel>
                         <div className="content-inner referrals">
                             <h6>Total rewards</h6>
                             <h4>$1,056.00 <span>USD</span></h4>
@@ -585,9 +481,9 @@ function UserProfile(props) {
 
                             <Link to="/wallet" className="btn-action">My Wallet</Link>
                         </div>
-                    </TabPanel>
+              </TabPanel>
 
-                    <TabPanel>
+              <TabPanel>
                         <div className="content-inner api">
                             <h6>Enable API access on your account to generate keys.</h6>
                             <h4>API Access is <span>Disabled</span></h4>
@@ -639,18 +535,18 @@ function UserProfile(props) {
                             <Link to="#" className="btn-action">Enable API keys</Link>
                             </div>
                         </div>
-                    </TabPanel>
+              </TabPanel>
 
-                    <TabPanel> 
-                      <div className="content-inner api">
-                        <h6>You can change your Password</h6>
-                        <form onSubmit={(e) => handleSubmitPassword(e)}>
-                          <div className="main">
-                            <div className="refe">
+              <TabPanel> 
+                  <div className="tabs-page__container">
+                    <p className='user-profile__email'>{user.email}</p>
+                    <h1 className="tabs-page__title user-profile__title">You can change your Password</h1>
+                        <div className='user-profile__form'>
+                           <form onSubmit={(e) => handleSubmitPassword(e)}>
+                            <div className="user-profile__form__inputs mb-20">
                               <div className="form-group">
-                               <p>Your New Password</p>
+                               <p className='mb-20'>Your New Password</p>
                                 <input
-                                  className="form-control"
                                   type="password"
                                   placeholder="New Password"
                                   value={newPassword}
@@ -658,9 +554,8 @@ function UserProfile(props) {
                                 />
                               </div>
                               <div className="form-group">
-                                <p>Re-enter your new password</p>
+                                <p className='mb-20'>Re-enter your new password</p>
                                 <input
-                                  className="form-control"
                                   type="password"
                                   placeholder="re-enter New Password"
                                   value={reNewPassword}
@@ -670,113 +565,25 @@ function UserProfile(props) {
                             </div>
                             <div className="center">
                               <button 
-                                className="btn-action mb-20"
+                                className="btn-action"
                                 type="submit"
                               >
                                 Change password
                               </button>
                               <div className="bottom">
-                                <button 
-                                  type="button"
-                                  className="buttonText"
-                                  onClick={handleSendEmailResetPassword}
-                                >
-                                  Forgot your password?
-                                </button>
-                                </div>
                             </div>
                           </div>
-                        </form>
                           
-                        </div>
-                    </TabPanel>
-                    {/*<TabPanel>*/}
-                    {/*    <div className="content-inner api">*/}
-                    {/*        <h4>2FA <span className="color-success">Enabled</span></h4>*/}
-                    {/*        <p>*/}
-                    {/*        If you want to turn off 2FA, input your account password and*/}
-                    {/*        the six-digit code provided by the Google Authenticator app*/}
-                    {/*        below, then click <strong>"Disable 2FA"</strong>.*/}
-                    {/*        </p>*/}
-
-                    {/*        <div className="main">*/}
-                    {/*        <h6>Disable 2FA</h6>*/}
-                    {/*        <p>*/}
-                    {/*            Enter your password and 2FA code to Disable the 2FA*/}
-                    {/*            verification*/}
-                    {/*        </p>*/}
-
-                    {/*        <div className="refe">*/}
-                    {/*            <div className="form-group">*/}
-                    {/*            <p>Your Password</p>*/}
-                    {/*            <input*/}
-                    {/*                className="form-control"*/}
-                    {/*                type="password"*/}
-                    {/*                placeholder="Passworld"*/}
-                    {/*            />*/}
-                    {/*            </div>*/}
-                    {/*            <div className="form-group">*/}
-                    {/*            <p>2FA Code</p>*/}
-                    {/*            <input*/}
-                    {/*                className="form-control"*/}
-                    {/*                type="text"*/}
-                    {/*                placeholder="2FA code"*/}
-                    {/*            />*/}
-                    {/*            </div>*/}
-                    {/*        </div>*/}
-                    {/*        <Link to="#" className="btn-action">Disable 2FA verification</Link>*/}
-                    {/*        </div>*/}
-                    {/*    </div>*/}
-                    {/*</TabPanel>*/}
-                    {/*<TabPanel>*/}
-                    {/*    <div className="content-inner profile change-pass">*/}
-                    {/*        <h4>Change Password</h4>*/}
-                    {/*        <h6>New Passworld</h6>*/}
-                    {/*        <form action="#">*/}
-                    {/*        <div className="form-group">*/}
-                    {/*            <div>*/}
-                    {/*            <label>Old Passworld<span>*</span>:</label>*/}
-                    {/*            <input*/}
-                    {/*                type="text"*/}
-                    {/*                className="form-control"*/}
-                    {/*                value="123456789"*/}
-                    {/*            />*/}
-                    {/*            </div>*/}
-                    {/*            <div>*/}
-                    {/*            <label>2FA Code<span>*</span>:</label>*/}
-                    {/*            <input type="text" className="form-control" />*/}
-                    {/*            </div>*/}
-                    {/*        </div>*/}
-                    {/*        <div className="form-group">*/}
-                    {/*            <div>*/}
-                    {/*            <label>New Passworld<span>*</span>:</label>*/}
-                    {/*            <input*/}
-                    {/*                type="password"*/}
-                    {/*                className="form-control"*/}
-                    {/*                placeholder="New Passworld"*/}
-                    {/*            />*/}
-                    {/*            </div>*/}
-                    {/*            <div>*/}
-                    {/*            <label>Confirm Passworld<span>*</span>:</label>*/}
-                    {/*            <input*/}
-                    {/*                type="password"*/}
-                    {/*                className="form-control"*/}
-                    {/*                placeholder="Confirm Passworld"*/}
-                    {/*            />*/}
-                    {/*            </div>*/}
-                    {/*        </div>*/}
-                    {/*        </form>*/}
-                    {/*        <button type="submit" className="btn-action">*/}
-                    {/*        Change Passworld*/}
-                    {/*        </button>*/}
-                    {/*    </div>*/}
-                    {/*</TabPanel>*/}
-                </Tabs>
-                </div>
-            </div>
-            </section>
-
-            {/*<Sale01 />*/}
+                        </form>
+                      </div>
+                         
+                       
+                        
+                          
+                    </div>
+                </TabPanel>
+                   
+              </Tabs>
 
             {showNotification &&
               <ModalNotification
@@ -789,11 +596,16 @@ function UserProfile(props) {
             }
 
             {showReAutrnticateNotification &&
-              <ModalReAuthenticate
-                showModal={showReAutrnticateNotification}
-                setShowModal={setShowReAutrnticateNotification}
-                title={notificationTitle}
-                setPromptForCredentials={setPromptForCredentials}
+              <Modal
+                isModal={showReAutrnticateNotification}
+                handleModal={() => setShowReAutrnticateNotification(false)}
+               
+                message={
+                  <ReAuthForm
+                    handleModal={() => setShowReAutrnticateNotification(false)} 
+                    setPromptForCredentials={setPromptForCredentials}
+                  />
+                }
               />
             }
         </div>

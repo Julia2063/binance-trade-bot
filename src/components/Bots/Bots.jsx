@@ -44,19 +44,22 @@ function Bots({ setTabIndex }) {
     };
     
     return (
-        <div className="work-page__container bots__container">
+        <div className="tabs-page__container bots__container">
         
         
-            <div className="bots__actions">
-                <BellAttention isAttention/>
-               {user.tradingLimit === 0 && 
+          {user.tradingLimit === 0 &&
+           <div className="bots__actions">
+               {/*  <BellAttention isAttention/> */}
+              
                <CustomButton 
                   title='Create Bot' 
                   customClass='addBotButton' 
                   img={<AiOutlinePlus />}
                   handleClick={handleAddBot}
-                />} 
+                />
             </div>
+          }
+            
        
 
         <div className="row bots__row">

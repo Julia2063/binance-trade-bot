@@ -125,7 +125,7 @@ function App() {
     return (
         <>
          
-            <Header background={location.pathname === '/work-page' ? true : false}/>
+            <Header background={location.pathname === '/work-page' || location.pathname === '/user-profile' ? true : false}/>
             {/*<button*/}
             {/*    onClick={() => {*/}
             {/*        getCollectionWhereKeyValue('users', 'uid', user.uid).then(r => {*/}
