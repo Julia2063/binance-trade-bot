@@ -40,6 +40,9 @@ function Dashboard() {
 
     const handleGetInformations = async () => {
       setProfits([]);
+      if(!user.status) {
+        return;
+      }
         try {
           updateFieldInDocumentInCollection('users', user.idPost, 'command', 'GetProfitH')
           .then(res => {
@@ -68,7 +71,7 @@ function Dashboard() {
       if (profits.length === 0 && user.status) {
         handleGetInformations();
       }
-    }, []);
+    }, [user]);
 
     useEffect(() => {
       const lastOrderIndex = currentPage * ordersPerPage;

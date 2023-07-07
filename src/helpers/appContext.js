@@ -54,7 +54,16 @@ export const AppProvider = ({ children }) => {
 
     useEffect(() => {
         getData();
+      
     }, [user, botAdded]);
+
+    useEffect(() => {
+        if (user.email.length > 0) {
+            setProfits([]);
+            setGetedOrders([]);
+        }
+        
+    }, [user.email])
   
     const contextValue = {
         user,
