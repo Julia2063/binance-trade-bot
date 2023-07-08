@@ -30,7 +30,7 @@ export const ScreenSeven = () => {
                 </div>
                 <div className='screenSeven__content'>
                     {questions.map(el => (
-                    <InfoDrop item={el} />
+                    <InfoDrop item={el} key={el.title} />
                 ))}
                 </div>
                 

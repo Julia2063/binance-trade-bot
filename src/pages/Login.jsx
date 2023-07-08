@@ -103,7 +103,7 @@ function Login(props) {
         try {
           const result = await signIn(regInfo.email, regInfo.password);
           console.log(result.user.providerData);
-          navigate('/wallet');
+          navigate('/work-page');
         } catch (err) {
           setShowNotification(true);
           setNotificationTitle('LogIn error');
@@ -157,7 +157,7 @@ function Login(props) {
           await confirmObj.confirm(otp);
 
 
-          navigate('/wallet');
+          navigate('/work-page');
         } catch (err) {
           setShowNotification(true);
           setNotificationTitle('Login error');
@@ -192,7 +192,7 @@ function Login(props) {
           const user = await createNewUser(newUser);
           setUser(user);
 
-          navigate('/wallet');
+          navigate('/work-page');
         } catch (err) {
           setShowNotification(true);
           setNotificationTitle('Login error');
@@ -227,7 +227,7 @@ function Login(props) {
         const user = await createNewUser(newUser);
         setUser(user);
 
-        navigate('/wallet');
+        navigate('/work-page');
       } catch (err) {
         setShowNotification(true);
         setNotificationTitle('Register error');

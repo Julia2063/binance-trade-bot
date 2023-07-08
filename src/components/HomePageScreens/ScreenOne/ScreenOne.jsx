@@ -13,7 +13,7 @@ export const ScreenOne = () => {
             <div className='screenOne__content'>
                 <div className='screenOne__text'>
                     <h1>
-                        Auto buy low and sell&nbsp;
+                        Auto buy <span>low</span> and sell&nbsp;
                         <span>high</span>&nbsp;
                         with exclusive crypto&nbsp; 
                         <span>trading </span>

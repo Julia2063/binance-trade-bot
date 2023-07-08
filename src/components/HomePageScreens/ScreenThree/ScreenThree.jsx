@@ -47,19 +47,18 @@ export const ScreenThree = () => {
         <section className='screenThree'>
             <div className='container'>
                 <h2>Your funds and algorithms are safe.</h2>
-                <icon1 />
                 <div className='screenThree__content'>
                      {content.map(item => (
-                        <div>
+                        <div key={item.title}>
                            
                             <InfoItem 
-                            key={item.title}
-                            title={item.title}
-                            text={item.text}
-                            Img={item.img}
-                            clTitle='screenThree__content__title'
-                            clText='screenThree__content__text'
-                            clImg='screenThree__content__img'
+                            
+                                title={item.title}
+                                text={item.text}
+                                Img={item.img}
+                                clTitle='screenThree__content__title'
+                                clText='screenThree__content__text'
+                                clImg='screenThree__content__img'
                             />
                         </div>
                         

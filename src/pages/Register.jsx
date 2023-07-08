@@ -130,7 +130,7 @@ function Register(props) {
           const ifSignUp = await signUpAndCreateUser(regInfo, setUser);
 
           if (ifSignUp) {
-            navigate('/wallet');
+            navigate('/work-page');
           } else {
             setShowNotification(true);
             setNotificationTitle('Register error');
@@ -193,7 +193,7 @@ function Register(props) {
         const user = await createNewUser(newUser);
         setUser(user);
         
-        navigate('/wallet');
+        navigate('/work-page');
       } catch (err) {
         setShowNotification(true);
         setNotificationTitle('Register error');
@@ -229,7 +229,7 @@ function Register(props) {
       const user = await createNewUser(newUser);
       setUser(user);
 
-      navigate('/wallet');
+      navigate('/work-page');
    
       } catch (err) {
         setShowNotification(true);
@@ -268,7 +268,7 @@ function Register(props) {
       const user = await createNewUser(newUser);
       setUser(user);
 
-      navigate('/wallet');
+      navigate('/work-page');
       } catch (err) {
         setShowNotification(true);
         setNotificationTitle('Register error');

@@ -581,7 +581,7 @@ function UserProfile(props) {
                         
                           
                     </div>
-                </TabPanel>
+              </TabPanel>
                    
               </Tabs>
 
