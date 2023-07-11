@@ -19,6 +19,7 @@ import PrivacyPolicy from "./PrivacyPolicy";
 import Certificates from "./Certificates";
 import WorkPage from "./WorkPage";
 import HomePage from "./HomePage";
+import TermsConditions from "./TermsConditions";
 
 const routes = [
   { path: '/', component: <HomePage />},
@@ -44,6 +45,8 @@ const routes = [
   { path: '/privacy', component: <PrivacyPolicy />},
   { path: '/certificates', component: <Certificates />},
   { path: '/work-page', component: <WorkPage />},
+  { path: '/terms-and-conditions', component: <TermsConditions />},
+  { path: '/privacy-policy', component: <PrivacyPolicy />},
 ]
 
 export default routes;

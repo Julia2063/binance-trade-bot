@@ -58,11 +58,10 @@ export const AppProvider = ({ children }) => {
     }, [user, botAdded]);
 
     useEffect(() => {
-        if (user.idPost) {
-            setProfits([]);
-            setGetedOrders([]);
-        }
-        
+       
+        setProfits([]);
+        setGetedOrders([]);
+
     }, [user.idPost])
   
     const contextValue = {

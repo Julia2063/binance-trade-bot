@@ -41,9 +41,11 @@ function WorkPage() {
     const { user } = useContext(AppContext);
 
     useEffect(() => {
-        if(!user.idPost) {
+        if(user?.BinanceApiKey?.length === 0) {
+            setTabIndex(2);
+        } else {
             setTabIndex(0);
-        } 
+        }
     }, [user]);
 
     return (

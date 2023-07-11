@@ -69,9 +69,10 @@ function Dashboard() {
 
     useEffect(() => {
       if (profits.length === 0 && user.status) {
+        console.log('getInfo');
         handleGetInformations();
-      }
-    }, [user]);
+      };
+    }, [user.idPost]);
 
     useEffect(() => {
       const lastOrderIndex = currentPage * ordersPerPage;

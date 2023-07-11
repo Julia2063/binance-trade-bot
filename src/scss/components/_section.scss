@@ -21,6 +21,47 @@
     }
   }
 
+  .infoPage {
+    &__insideList {
+      padding-left: 40px;
+
+    }
+
+    & section {
+      flex-direction: column;
+
+      color: $white;
+
+      & p {
+        margin-bottom: 10px;
+      }
+
+      & ul {
+        list-style-position: inside;
+      }
+
+      & li {
+        list-style-type: disc;
+        margin-bottom: 10px;
+      }
+
+      & a {
+        text-decoration: underline;
+      }
+
+      & ol {
+        & li {
+          list-style-type: none;
+
+          & li {
+            list-style-type: decimal;
+          }
+        }
+      }
+    } 
+    
+  }
+
   .tabs-page {
     .react-tabs {
       display: flex;

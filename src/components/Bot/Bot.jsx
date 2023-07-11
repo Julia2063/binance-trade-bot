@@ -9,6 +9,7 @@ import { useContext } from 'react';
 import { AppContext } from '../../helpers/appContext';
 import { updateFieldInDocumentInCollection } from '../../helpers/firebaseConfigAndControls';
 import { useEffect } from 'react';
+import { toast } from 'react-toastify';
 
 
 function Bot({ setIsUpdateLimit, setIsModal, setTabIndex}) {
@@ -18,19 +19,38 @@ function Bot({ setIsUpdateLimit, setIsModal, setTabIndex}) {
     useEffect(() => {
         setOn(user.status);
     }, [user]);
-    console.log(on);
+  
 
     const handleChange = async ({ target: { checked } }) => {
-        try {
-            if(user.error.length === 0) {
-                 await updateFieldInDocumentInCollection('users', user.idPost, 'status', checked);
-            }
-        
-        } catch (error) {
-         console.log(error);
+        if (user.error.length !== 0) {
+            toast.warning("You have some exchange error, please check your exchange connect!");
+            return;
+        };
+        if (user.status) {
+            await updateFieldInDocumentInCollection('users', user.idPost, 'status', checked);
+            toast.success('Trade was suspended');
+            return;
         }
-     };
-    
+            updateFieldInDocumentInCollection('users', user.idPost, 'command', 'GetBalance').then(async res => {
+                if (user.balanceUSDT < 10) {
+                    toast.warning("Start trading is not possible with a exchange balance of less than 10 USDT.  Please fill the ballance exchange, please");
+                    return;
+                } else if (user.balanceUSDT < 200) {
+                    try {
+                            await updateFieldInDocumentInCollection('users', user.idPost, 'status', checked);
+                            toast.warning("Trading started, but we recommend refilling the Ballance Exchange, as the optimal deposit should be over 200 USDT");
+                        } catch (error) {
+                            console.log(error);
+                        }
+                } else {
+                    try {
+                    await updateFieldInDocumentInCollection('users', user.idPost, 'status', checked);
+                    toast.success('Trading started');
+                } catch (error) {
+                    console.log(error);
+                }}       
+            })};
+
     const handleChangeLimit = () => {
         setIsUpdateLimit(true);
         setIsModal(true);
@@ -44,13 +64,13 @@ function Bot({ setIsUpdateLimit, setIsModal, setTabIndex}) {
             <div className='col'>BinanceBot</div>
             <div className='col'>{`${user.tradingLimit} USDT` }</div>
             <div className='col'>
-            <label class="switch">
+            <label className="switch">
                 <input 
                   type="checkbox" 
                   onChange={handleChange}
                   checked={on}
                 />
-                <span class="slider round"></span>
+                <span className="slider round"></span>
             </label>
             </div>
             <div className='col-2 center'>

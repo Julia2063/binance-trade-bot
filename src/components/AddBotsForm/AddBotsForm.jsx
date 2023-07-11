@@ -18,16 +18,13 @@ import Input from '../Input/Input';
 
 
 function AddBotsForm({ handleModal, setTabIndex, isUpdateLimit }) {
-   
-    
 
     const selectValues = ['Choose exchange -', 'Demo', 'Binance'];
     const [exchange, setExchange] = useState(selectValues[0]);
-    const [available, setAvailable] = useState(1000);
+    const [available, setAvailable] = useState(0);
     const [fund, setFund] = useState(0);
     const [isInput, setIsInput] = useState(false);
     const { user } = useContext(AppContext);
-
 
     console.log(fund);
 
@@ -49,10 +46,7 @@ function AddBotsForm({ handleModal, setTabIndex, isUpdateLimit }) {
         case +e.target.value < 0: 
           setFund(0);
           break;
-        case +e.target.value > available:
-          setFund(available);
-          break;
-        
+      
         default:
           setFund(+e.target.value);
           break;
@@ -65,16 +59,12 @@ function AddBotsForm({ handleModal, setTabIndex, isUpdateLimit }) {
           toast.warning("Connect to the exchange, please!");
           setTabIndex(2);
           handleModal();
-        };
-
-        if(fund === 0) {
-          toast.warning('Set fund, please!');
           return;
         };
 
         try {
           /* await createNewBot(fund, user.uid, exchange); */
-          await updateFieldInDocumentInCollection('users', user.idPost, 'tradingLimit', fund);
+          await updateFieldInDocumentInCollection('users', user.idPost, 'tradingLimit', fund === 0 ? available : fund);
           isUpdateLimit 
           ? toast.success('Fund has been updated!')
           : toast.success('Bot has been created!');
@@ -86,8 +76,6 @@ function AddBotsForm({ handleModal, setTabIndex, isUpdateLimit }) {
         
         handleModal();
     };
-
-    console.log(isUpdateLimit);
 
     
     return (
@@ -110,7 +98,7 @@ function AddBotsForm({ handleModal, setTabIndex, isUpdateLimit }) {
             <p className="addBotsForm__label">2. Trade Parameters</p>
             <ElementWithExplain 
               title="Fund Allocation"
-              text="Maximum initial funds set aside for the bot."
+              text="Maximum initial funds set aside for the bot. If this parameter remains equal to zero, trading will be carried out for the entire sum of the exchange deposit"
             />
             <div 
               className="input input--dark"
@@ -128,7 +116,6 @@ function AddBotsForm({ handleModal, setTabIndex, isUpdateLimit }) {
                   className="input__button2 input__button2--1"
                   onClick={() => setFund(fund + 10)}
                   type='button'
-                  disabled={fund === available}
                 >
                     <TbCaretDown width={11} height={20}/>
                 </button>
@@ -136,7 +123,7 @@ function AddBotsForm({ handleModal, setTabIndex, isUpdateLimit }) {
                   className="input__button2 input__button2--2"
                   onClick={() => setFund(fund - 10)}
                   type='button'
-                  disabled={fund <= 10}
+                  disabled={fund === 0}
                 >
                     <TbCaretDown width={11} height={20}/>
                 </button>

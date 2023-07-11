@@ -84,8 +84,8 @@ function Footer(props) {
                     </div>
 
                     <div className="col-3 col-md-6">
-                        <Link>Terms & Conditions</Link>
-                        <Link>Privacy Policy</Link>
+                        <Link to='/terms-and-conditions'>Terms & Conditions</Link>
+                        <Link to='/privacy-policy'>Privacy Policy</Link>
                     </div>
 
                     <div className="col-xl-4 col-md-6 footer__letter">
