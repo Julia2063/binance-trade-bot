@@ -23,8 +23,9 @@ export const AppContext = React.createContext({
     botAdded: 0,
     setBotAdded: () => {},
     getedOrders:[],
-    setGetedOrders:  () => {},
-    
+    setGetedOrders: () => {},
+    history: [],
+    setHistory: () => {},
 
 });
 
@@ -37,6 +38,7 @@ export const AppProvider = ({ children }) => {
     const [bots, setBots] = useState([]);
     const [botAdded, setBotAdded] = useState(0);
     const [getedOrders, setGetedOrders] = useState([]);
+    const [history, setHistory] = useState([]);
 
     
     /* const getData = async() => {
@@ -75,7 +77,9 @@ export const AppProvider = ({ children }) => {
         botAdded,
         setBotAdded,
         getedOrders, 
-        setGetedOrders
+        setGetedOrders,
+        history,
+        setHistory
     }
 
     return (

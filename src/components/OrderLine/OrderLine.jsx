@@ -16,8 +16,8 @@ function OrderLine({ data }) {
 
         <div className="dashboard__ordersSection__table__item" >
          
-            <div>{format(new Date(data.created_at * 1000), 'dd-MM-yyyy')}</div>
-            <div>{format(new Date(data.created_at * 1000), 'HH:mm:ss')}</div>
+            <div>{format(new Date(data.created_at), 'dd-MM-yyyy')}</div>
+            <div>{format(new Date(data.created_at), 'HH:mm:ss')}</div>
             <div className="orderLine__coin">{pair && `${nameLookup(pair)} (${symbolLookup(nameLookup(pair))})`}</div>
             <div>{(+data.buy_base_qty).toFixed(4)}</div>
             <div>{(+data.buy_quote_qty).toFixed(4)}</div>

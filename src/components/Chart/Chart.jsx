@@ -209,13 +209,10 @@ export const options = {
         } else {
           return 'transparent'
         }
-        
       }
-    }
-    }
+    }}
   }
 };
-
 
 export function Chart(props) {
   const { times, profit } = props;

@@ -125,8 +125,12 @@
                     font-size: 20px;
                     line-height: 30px;
 
-                    &--proc {
+                    &--profit {
                         color: $green;
+                    }
+                    
+                    &--min {
+                        color: red;
                     }
                 }
             }

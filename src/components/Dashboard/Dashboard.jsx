@@ -20,7 +20,7 @@ import OrderLine from '../OrderLine/OrderLine';
 import cn from "classnames";
 
 function Dashboard() {
-    const { user, getedOrders, setGetedOrders } = useContext(AppContext);
+    const { user, getedOrders, setGetedOrders, history, setHistory } = useContext(AppContext);
     const [start, setStart] = useState('');
     const [end, setEnd] = useState('');
 
@@ -46,18 +46,24 @@ function Dashboard() {
         try {
               updateFieldInDocumentInCollection('users', user.idPost, 'command', user.lastOrderTime ?  `GetOrders|start_time=${user.lastOrderTime + 1}`: 'GetOrders')
               .then(res => {
-                onSnapshot(doc(db, 'orders', user.idPost, 'orders'), (doc) => {
+                onSnapshot(doc(db, 'orders', user.idPost), (doc) => {
                   if(doc.data()) {
-                    setGetedOrders(doc.data() ? Object.entries(doc.data()).sort((a, b) => b[1].created_at - a[1].created_at).map(el => el[1]) : []);
+                    setGetedOrders(doc.data() ? Object.entries(doc.data()).sort((a, b) => b[1].closed_at - a[1].closed_at).map(el => el[1]) : []);
                   }
-               });    
+               });
+               updateFieldInDocumentInCollection('users', user.idPost, 'command', 'GetHistory')
+               .then(r => {
+                onSnapshot(doc(db, 'history', user.idPost), (doc) => {
+                  if(doc.data()) {
+                    setHistory(doc.data() ? Object.entries(doc.data()).sort((a, b) => a[0] - b[0]) : [] );
+                  }
+               });
+               })    
           }); 
         } catch (error) {
           console.log(error);
         }
     };
-
-    console.log(getedOrders);
 
     useEffect(() => {
       if (getedOrders.length === 0) {
@@ -91,31 +97,29 @@ function Dashboard() {
     useEffect(() => {
       if (user.idPost) {
         
-        const unsubscribeOrd = onSnapshot(collection(db, 'orders', user.idPost, 'orders'));
+        const unsubscribeOrd = onSnapshot(doc(db, 'orders', user.idPost));
+        const unsubscribeHis = onSnapshot(doc(db, 'history', user.idPost));
 
-        if (getedOrders.length > 0) {
+        return (() => {
           unsubscribeOrd();
-        };
-      }
-    },[getedOrders]);
-/* 
+          unsubscribeHis();
+      });
+    }
+  },[]);
+
     useEffect(() => {
       if(start?.toString().length > 0 || end?.toString().length > 0) {
-        const perideIncome = profits.map(el => {
-                        
-          return [new Date([el[0].slice(0, 4), el[0].slice(4, 6), el[0].slice(6, 8)].join('/') + (` ${el[0].slice(8)}:00`)), el[1]]
-          }).filter(el => (start?.toString().length > 0 ? el[0] >= start : el[0]) && (end?.toString().length > 0 ? el[0] <= new Date(end).setDate(end?.getDate() + 1) : el[0])).map(el => el[1]).reduce((a, b) => a + b, 0);
-          setIncome(perideIncome.toFixed(2));
-          setIncomePerc((perideIncome/ user.tradingLimit * 100).toFixed(2));
 
-        const periodOrders = getedOrders.filter(el => (start?.toString().length > 0 ? new Date(el[1].created_at * 1000) >= start :  new Date(el[1].created_at * 1000)) && (end?.toString().length > 0 ? new Date(el[1].created_at * 1000)  <= new Date(end).setDate(end?.getDate() + 1) : new Date(el[1].created_at * 1000)));
+        const periodOrders = getedOrders.filter(el => (start ? new Date(el.closed_at) >= start :  new Date(el.created_at)) && (end ? new Date(el.closed_at) <= new Date(end).setDate(end?.getDate() + 1) : new Date(el.closed_at)));
         setOrders(periodOrders);
+        setIncome(periodOrders.map(el => +el.profit_stable).reduce((a, b) => a + b, 0).toFixed(2));
+        setIncomePerc(Math.abs((periodOrders.map(el => +el.profit_stable / (el.limit === 'None' ? (user.tradingLimit) : (+el.limit))).reduce((a, b) => a + b, 0)) * 100).toFixed(2));
       } else {
-        setIncome(profits.map(el => el[1]).reduce((a, b) => a + b, 0).toFixed(2));
-        setIncomePerc(Math.abs((profits.map(el => el[1]).reduce((a, b) => a + b, 0)) / user.tradingLimit * 100).toFixed(2));
+        setIncome(getedOrders.map(el => +el.profit_stable).reduce((a, b) => a + b, 0).toFixed(2));
+        setIncomePerc(Math.abs((getedOrders.map(el => +el.profit_stable / (el.limit === 'None' ? (user.tradingLimit) : (+el.limit))).reduce((a, b) => a + b, 0)) * 100).toFixed(2));
         setOrders(getedOrders);
       }
-    }, [profits, getedOrders, start, end]) */
+    }, [getedOrders, start, end])
 
     const handleModal = () => {
       setIsModal(false);
@@ -128,14 +132,23 @@ function Dashboard() {
           return 'Today';
         case ((start !== end) && (end !== null)): 
           return `${format(start, 'dd/MM/yyyy')} - ${format(end, 'dd/MM/yyyy')}`;
-        case ((end === null) && (start !== null)): 
-          return format(start, 'dd/MM/yyyy');
+        case ((start.length !== 0) && (start === end)): 
+          return `${format(start, 'dd/MM/yyyy')}`;
 
         default: 
-          return 'All'
-        
+          return 'All';
       }
     };
+
+    const handleReverse = (arr) => {
+      let a = [];
+      for (let i = 0; i < arr.length; i++){
+         a[i] = arr[(arr.length - 1) - i];
+      };
+      return a;
+    };
+
+    console.log(history);
 
     return (
         <div className="tabs-page__container">
@@ -168,20 +181,14 @@ function Dashboard() {
           
           <div className="dashboard__chartSection">
             <div className="dashboard__chartSection__chart">
-              {/* <Chart 
-              times={(start?.toString().length > 0 || end?.toString().length > 0) 
-                ? profits.map(el => {
-                        
-                  return new Date([el[0].slice(0, 4), el[0].slice(4, 6), el[0].slice(6, 8)].join('/') + (` ${el[0].slice(8)}:00`))
-                  }).filter(el => (start?.toString().length > 0 ? el > start : el) && (end?.toString().length > 0 ? el <= new Date(end).setDate(end.getDate() + 1) : el)).map(el => format(el, 'HH:mm dd.MM.yy'))
-                : profits.map(el => {
-                        
-                  return format(new Date([el[0].slice(0, 4), el[0].slice(4, 6), el[0].slice(6, 8)].join('/') + (` ${el[0].slice(8)}:00`)), 'HH:mm dd.MM.yy');
+              <Chart 
+              times={handleReverse(orders).map(el => {
+                  return format(new Date(el.closed_at), 'HH:mm dd.MM.yy');
                 })} 
 
-              profit={profits.map((el) => el[1]).map((el, i, arr) => el + arr.slice(0, i).reduce(function(sum, elem) {
-	                  return sum + elem}, 0)) } 
-            /> */}
+              profit={(handleReverse(orders).map((el, i, arr) => +el.profit_stable + (el.limit === 'None' ? user.tradingLimit : +el.limit) + arr.map(el => +el.profit_stable).slice(0, i).reduce(function(sum, elem) {
+	              return sum + elem}, 0)))} 
+            />
             </div>
             
             <div className="dashboard__chartSection__datas">
@@ -190,16 +197,19 @@ function Dashboard() {
                   Income
                 </div>
                 <div className="dashboard__chartSection__datas__item__value">
-                  {/* <span>
-                    {profits.length > 0 
+                  <span>
+                    {orders.length > 0 
                       && `$${income}` 
                     }
                   </span>
-                  <span className="dashboard__chartSection__datas__item__value--proc">
-                    {profits.length > 0 &&
-                      `${profits.map(el => el[1]).reduce((a, b) => a + b, 0) > 0 ? '+' : '-'}${incomPerc}%` 
+                  <span className={cn({
+                    "dashboard__chartSection__datas__item__value--profit": orders.map(el => +el.profit_stable).reduce((a, b) => a + b, 0) > 0,
+                    "dashboard__chartSection__datas__item__value--min": orders.map(el => +el.profit_stable).reduce((a, b) => a + b, 0) < 0,
+                  })} >
+                    {getedOrders.length > 0 &&
+                      `${orders.map(el => +el.profit_stable).reduce((a, b) => a + b, 0) > 0 ? '+' : '-'}${incomPerc}%` 
                     }
-                  </span> */}
+                  </span>
                 </div>
               </div> 
               <div className="dashboard__chartSection__datas__item">
@@ -229,7 +239,7 @@ function Dashboard() {
                <div>Fee</div>
                <div>Profit</div>
               </div>
-              {visibleOrders.map(el => <OrderLine data={el[1]} key={el[0]} />)}
+              {visibleOrders.map(el => <OrderLine data={el} key={el.closed_at} />)}
             </div>
             <div className='dashboard__ordersSection__table__footer'>
             {paginationCount.length > 1 && (
@@ -325,7 +335,7 @@ function Dashboard() {
                   setEnd={setEnd} 
                   handleModal={handleModal} 
                   handleGetInformations={handleGetInformations}
-                  /* profits={profits} */
+                  orders={orders}
                 />
               }
             />

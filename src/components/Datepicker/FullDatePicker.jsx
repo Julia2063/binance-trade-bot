@@ -13,7 +13,7 @@ import Input from "../Input/Input";
 import CustomButton from "../CustomButton/CustomButton";
 
 
-function FullDatePicker({ setStart, setEnd, handleModal, handleGetInformations, profits }) { 
+function FullDatePicker({ setStart, setEnd, handleModal, handleGetInformations, orders }) { 
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   
@@ -106,7 +106,6 @@ function FullDatePicker({ setStart, setEnd, handleModal, handleGetInformations, 
 
   useEffect(() => {
     if(startDate && endDate && new Date(startDate) > new Date(endDate)) {
-     
       setEndDate(null);
     }
   }, [startDate])
@@ -114,16 +113,15 @@ function FullDatePicker({ setStart, setEnd, handleModal, handleGetInformations, 
   const handleSetDate = () => {
     setStart(startDate);
     setEnd(endDate);
-    if (profits.length === 0) {
+    if(!endDate) {
+      setEnd(startDate);
+    }
+    if (orders.length === 0) {
       handleGetInformations();
     };
     handleModal();
     
   };
-
-  console.log(startDate, endDate);
-
-  console.log(isEndDateChanged);
 
   return (
     <>

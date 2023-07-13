@@ -672,6 +672,9 @@ h2 {
   position: relative;
   overflow: hidden;
   border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   &--disabled {
     background: $gray;
