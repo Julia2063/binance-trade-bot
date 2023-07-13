@@ -574,12 +574,7 @@ body[data-magic-cursor=hide] .mouse-cursor {
 .header .header__left .logo .dark {
   display: none;
 }
-.header .header__left .main-nav .menu {
-  margin-left: 46px;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-}
+
 
 .header .header__left .main-nav .menu li a {
   position: relative;
