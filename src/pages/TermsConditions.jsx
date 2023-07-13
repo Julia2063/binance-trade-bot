@@ -295,6 +295,9 @@ function TermsConditions () {
                         <a href='mailto:admin@easycoin.ai'>admin@easycoin.ai</a>.
                     </p>
                     <h4>GOVERNING LAW AND DISPUTE RESOLUTION</h4>
+                    <p>
+                        Alternative dispute resolution is a process where an independent body considers the facts of a dispute and seeks to resolve it, without you having to go to court. If you are not happy with how we have handled any complaint, you may want to contact the alternative dispute resolution provider we use.
+                    </p>
                     <h4>ACCEPTABLE USE POLICY</h4>
                     <p>
                         As part of the terms of use, you agree not to misuse the Platform or help anyone else to do so. For example, you agree not to do any of the following in connection with the Platform:
@@ -353,8 +356,6 @@ function TermsConditions () {
                         </li>
                     </ul>
                     <p>Last updated: 10nd June 2023</p>
-{/* These terms are governed by and shall be construed in accordance with the laws of the Republic of Singapore.
-Alternative dispute resolution is a process where an independent body considers the facts of a dispute and seeks to resolve it, without you having to go to court. If you are not happy with how we have handled any complaint, you may want to contact the alternative dispute resolution provider we use. You can submit a complaint to Singapore International Arbitration Centre via their website at https://www.siac.org.sg. Singapore International Arbitration Centre will not charge you for making a complaint and if you are not satisfied with the outcome you can still bring legal proceedings. */}
                 </section>
             </div>
         </div>

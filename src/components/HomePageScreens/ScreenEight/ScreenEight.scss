@@ -1,11 +1,13 @@
+@import '../../../scss/mixin';
 @import '../../../scss/variables';
 
 .screenEight {
+    width: 100vw;
     background: var(--bg);
     background-image: url(../../../assets/images/background/bitcoin.png);
     background-repeat: no-repeat;
     background-size: contain;
-    background-position: right;
+    background-position-x: right;
 
     padding-bottom: 0 !important;
 
@@ -13,27 +15,55 @@
         display: flex;
         flex-direction: column;
         gap: 40px;
+
+        @include desktop-width {
+            gap: 20px;
+        }
     }
 
     &__title {
         font-weight: 600;
         font-size: 48px;
         line-height: 64px;
-        width: 50%;
+        width: 60%;
 
         color: $white; 
+
+        @include desktop-width {
+            font-size: 40px;
+            line-height: 60px;
+
+            width: 60%;
+        }
+
+        @include tablet {
+            font-size: 32px;
+            line-height: 52px;
+        }
     }
 
     &__text {
         font-weight: 400;
         font-size: 20px;
         line-height: 30px;
-        width: 50%;
+        width: 60%;
 
         display: flex;
         flex-direction: column;
 
         gap: 10px;
+
+        @include desktop-width {
+            font-size: 18px;
+            line-height: 25px;
+            
+            width: 60%;
+        }
+
+        @include tablet {
+            font-size: 16px;
+            line-height: 20px;
+        }
     }
 }
 

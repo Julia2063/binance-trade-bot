@@ -1,3 +1,4 @@
+@import '../../scss/mixin';
 @import '../../scss/variables';
 
 .bots {
@@ -28,6 +29,7 @@
     &__list {
       display: flex;
       gap: 35px;
+      
     }
 
     &__tab {

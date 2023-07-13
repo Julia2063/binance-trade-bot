@@ -48,7 +48,7 @@ export const ScreenTwo = () => {
                         />
                     ))}    
                 </div>
-                <div>
+                <div className='screenTwo__content__item__img'>
                   <img src={require('../../../assets/images/homePage/screen.png')}  alt=''/>
                 </div>
                 <div className='screenTwo__content__item'>

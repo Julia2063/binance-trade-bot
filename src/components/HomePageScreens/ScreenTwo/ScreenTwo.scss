@@ -1,3 +1,4 @@
+@import '../../../scss/mixin';
 @import '../../../scss/variables';
 
 .screenTwo {
@@ -18,8 +19,16 @@
 
     &__content {
         display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-columns: 1fr 650px 1fr;
         gap: 40px;
+
+        @include desktop-width {
+            grid-template-columns: 1fr 500px 1fr;
+        }
+
+        @include tablet {
+            grid-template-columns: 1fr 400px 1fr;
+        }
 
         
 
@@ -27,6 +36,25 @@
             display: flex;
             flex-direction: column;
             gap: 50px;
+
+            @include desktop-width {
+                gap: 20px;
+
+                font-size: 14px;
+                line-height: 18px;
+
+            }
+
+            @include tablet {
+                gap: 10px;
+            }
+
+            &__img {
+                & img {
+                    width: 100%;
+                    object-fit: contain;
+                }  
+            }
         }
 
         &__title {
@@ -35,6 +63,11 @@
             line-height: 27px;
 
             color: $white;
+
+            @include desktop-width {
+                font-size: 16px;
+                line-height: 22px;
+            }
         }
     }
 }

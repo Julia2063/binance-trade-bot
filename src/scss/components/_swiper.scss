@@ -1,3 +1,4 @@
+@import '../mixin';
 @import '../variables';
 
 $themeColor: $primary !default;
@@ -330,5 +331,7 @@ $themeColor: $primary !default;
 
     padding: 20px;
 
-    
+    @include desktop-width {
+      height: 400px;
+    }
 }

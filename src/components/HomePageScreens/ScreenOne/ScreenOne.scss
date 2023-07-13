@@ -1,3 +1,4 @@
+@import '../../../scss/mixin';
 @import '../../../scss/variables';
 
 .screenOne {
@@ -6,6 +7,10 @@
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
+
+    @include desktop-width {
+        background-size: cover;
+    }
 
   
 
@@ -16,6 +21,14 @@
 
     &__image {
         height: 450px;
+
+        @include desktop-width {
+            height: 400px;
+        }
+
+        @include tablet {
+            height: 300px;
+        }
 
         & img {
             object-fit: contain;
@@ -36,6 +49,16 @@
           font-size: 56px;
           line-height: 84px;
           color: $white; 
+
+          @include desktop-width {
+            font-size: 48px;
+            line-height: 75px;
+          }
+
+          @include tablet {
+            font-size: 35px;
+            line-height: 45px;
+          }
         }
 
         & span {

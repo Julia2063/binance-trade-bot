@@ -1,3 +1,4 @@
+@import '../../scss/mixin';
 @import '../../scss/variables';
 
 .dashboard {
@@ -23,6 +24,16 @@
                 font-size: 18px;
                 line-height: 27px;
                 margin-right: 5px;
+
+                @include desktop-width  {
+                    font-size: 16px;
+                    line-height: 22px;
+                }
+
+                @include tablet {
+                    font-size: 14px;
+                    line-height: 20px;
+                }
             }
 
             & button {
@@ -40,6 +51,16 @@
                 gap: 10px;
 
                 padding: 0 15px;
+
+                @include desktop-width  {
+                    font-size: 14px;
+                    line-height: 20px;
+                }
+                
+                @include tablet {
+                    font-size: 12px;
+                    line-height: 18px;
+                }
             }
 
             & button:last-child {

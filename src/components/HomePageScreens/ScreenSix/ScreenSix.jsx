@@ -51,7 +51,7 @@ export const ScreenSix = () => {
            <h2>ROAD MAP</h2>
            <Swiper
               slidesPerView={3}
-              spaceBetween={60}
+              spaceBetween={40}
             
               navigation
               modules={[Navigation]}

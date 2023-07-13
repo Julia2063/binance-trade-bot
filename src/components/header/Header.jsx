@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useContext} from 'react';
+import React, {useState, useEffect, useContext, useRef} from 'react';
 
 import { NavLink, useNavigate } from 'react-router-dom';
 
@@ -14,6 +14,7 @@ import { PageNavLink } from '../PageNavLink/PageNavLink';
 import { logOut } from '../../helpers/firebaseConfigAndControls';
 
 import { FiLogOut } from 'react-icons/fi'
+import { useOnClickOutside } from '../../helpers/hooks/useOnClickOutside';
 
 
 const Header = ({ background }) => {
@@ -22,6 +23,9 @@ const Header = ({ background }) => {
 
     const navigate = useNavigate();
 
+    const ref = useRef();
+
+   
 
     useEffect(() => {
         window.addEventListener("scroll", () => {
@@ -33,6 +37,8 @@ const Header = ({ background }) => {
     }, []);
 
     const [menuActive, setMenuActive] = useState(null);
+
+    useOnClickOutside(ref, () => setMenuActive(null))
 
     const handleMenuActive = () => {
         setMenuActive(!menuActive);
@@ -54,6 +60,15 @@ const Header = ({ background }) => {
         }
       };
 
+      useEffect(()  => {
+        if (menuActive) {
+          document.body.classList.add('overflowHidden');
+    
+        } else {
+          document.body.classList.remove('overflowHidden');
+        }
+        
+      }, [menuActive]);
 
    
     return (
@@ -74,7 +89,7 @@ const Header = ({ background }) => {
                         </NavLink>
                         </div>
                         <div className="left__main">
-                            <nav className={`main-nav ${menuActive ? 'active' : ''}`}>
+                            <nav className={`main-nav ${menuActive ? 'active' : ''}`} ref={ref}>
                                 <ul className="menu">
                                 {
                                     menu.map((data, idx) => (
@@ -89,6 +104,23 @@ const Header = ({ background }) => {
                                         </li>
                                     ))
                                 }
+                                {menuActive && (
+                                     !user.idPost
+                                        ? (
+                                          <>
+                                            <li className='menu-item'>
+                                               <PageNavLink text='Sign Up' to='/register'/>
+                                            </li>
+                                            <li className='menu-item'>
+                                              <PageNavLink text='Log In' to='/login' />
+                                            </li>
+                                             
+                                              
+                                          </>
+                                        )
+                                        : <PageNavLink text='User Profile' to='/user-profile'/>
+                                        
+                                )}
                                 </ul>
                             </nav>
                         </div>

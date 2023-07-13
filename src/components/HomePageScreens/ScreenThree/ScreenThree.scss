@@ -1,9 +1,8 @@
+@import '../../../scss/mixin';
 @import '../../../scss/variables';
 
 .screenThree {
     background: $white;
-
-   
 
     & .container {
         display: flex;
@@ -25,12 +24,25 @@
         row-gap: 40px;
         column-gap: 100px;
 
+        @include desktop-width {
+            column-gap: 70px;
+        }
+
+        @include tablet {
+            column-gap: 40px;
+        }
+
         &__title {
             font-weight: 600;
             font-size: 20px;
             line-height: 30px;
 
             color: #000;
+
+            @include desktop-width {
+                font-size: 18px;
+                line-height: 20px;
+            }
         }
 
         &__text {
@@ -39,11 +51,21 @@
             line-height: 24px;
 
             color: $color-main2;
+
+            @include desktop-width {
+                font-size: 14px;
+                line-height: 18px;
+            }
         }
 
         &__img {
             width: 73px;
             height: 73px;
+
+            @include desktop-width {
+                width: 60px;
+                height: 60px;
+            }
         }
 
     }

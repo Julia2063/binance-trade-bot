@@ -116,6 +116,7 @@ export async function  getCollection (collection)    {
     });
 };
 
+
 export async function updateFieldInDocumentInCollection (collection, docId, fieldName, newValue) {
     console.log(collection);
     console.log(docId);

@@ -335,7 +335,21 @@ h6,
   padding: 0 100px;
 
   &--layout {
-    padding: 0;
+    padding: 0 20px;
+    margin: 0;
+  }
+
+  @include desktop-width {
+    padding: 0 80px;
+
+    &--layout {
+      padding: 0 20px;
+      margin: 0;
+    }
+  }
+
+  @include tablet {
+    padding: 0 40px;
   }
 }
 
@@ -688,6 +702,10 @@ h2 {
   transition-duration: 0.7s, 0.7s, 0.15s;
   transition-property: left, top, opacity;
   transition-timing-function: linear;
+}
+
+.overflowHidden {
+  overflow: hidden;
 }
 
 

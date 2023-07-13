@@ -1,3 +1,4 @@
+@import '../../../scss/mixin';
 @import '../../../scss/variables';
 
 .screenSeven {
@@ -24,6 +25,10 @@
         width: 60%;
 
         margin-bottom: 70px;
+
+        @include desktop-width {
+            width: 70%;
+        }
     }
 
     &__content {

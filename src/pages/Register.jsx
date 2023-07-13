@@ -280,9 +280,7 @@ function Register(props) {
 
     return (
         <div>
-            <PageTitle heading='Register' title='Register' />
-
-            <section className="register">
+          <section className="register">
             <div className="container">
                 <div className="row">
                 <div className="col-md-12">

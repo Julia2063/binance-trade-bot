@@ -266,8 +266,6 @@ function Login(props) {
     //#region Render
     return (
         <div>
-            <PageTitle heading='Login' title='Login' />
-
             <section className="register login">
               <div className="container">
                 <div className="row">

@@ -22,8 +22,6 @@ export const AppContext = React.createContext({
     setBots: () => {},
     botAdded: 0,
     setBotAdded: () => {},
-    profits: [],
-    setProfits: () => {},
     getedOrders:[],
     setGetedOrders:  () => {},
     
@@ -38,11 +36,10 @@ export const AppProvider = ({ children }) => {
     const [lang, setLang] = useState('en');
     const [bots, setBots] = useState([]);
     const [botAdded, setBotAdded] = useState(0);
-    const [profits, setProfits] = useState([]);
     const [getedOrders, setGetedOrders] = useState([]);
 
     
-    const getData = async() => {
+    /* const getData = async() => {
         try {
             const botsArray = await getCollectionWhereKeyValue("bots", "uid", user.uid);
             setBots(botsArray);
@@ -55,11 +52,9 @@ export const AppProvider = ({ children }) => {
     useEffect(() => {
         getData();
       
-    }, [user, botAdded]);
+    }, [user, botAdded]); */
 
     useEffect(() => {
-       
-        setProfits([]);
         setGetedOrders([]);
 
     }, [user.idPost])
@@ -79,8 +74,6 @@ export const AppProvider = ({ children }) => {
         setBots,
         botAdded,
         setBotAdded,
-        profits, 
-        setProfits,
         getedOrders, 
         setGetedOrders
     }

@@ -6,7 +6,7 @@ import { Chart } from '../Chart/Chart';
 import { useContext } from 'react';
 import { AppContext } from '../../helpers/appContext';
 import { db, updateFieldInDocumentInCollection } from '../../helpers/firebaseConfigAndControls';
-import { doc, onSnapshot } from 'firebase/firestore';
+import { collection, doc, onSnapshot } from 'firebase/firestore';
 import { useEffect } from 'react';
 import { format } from 'date-fns';
 
@@ -20,7 +20,7 @@ import OrderLine from '../OrderLine/OrderLine';
 import cn from "classnames";
 
 function Dashboard() {
-    const { user, profits, setProfits, getedOrders, setGetedOrders } = useContext(AppContext);
+    const { user, getedOrders, setGetedOrders } = useContext(AppContext);
     const [start, setStart] = useState('');
     const [end, setEnd] = useState('');
 
@@ -38,37 +38,29 @@ function Dashboard() {
     const [paginationCount, setPaginationCount] = useState([]);
     const [paginationSlice, setPaginationSlice] = useState({start: 0, end: 4});
 
-    const handleGetInformations = async () => {
-      setProfits([]);
+    const handleGetInformations = () => {
+      setGetedOrders([]);
       if(!user.status) {
         return;
-      }
+      };
         try {
-          updateFieldInDocumentInCollection('users', user.idPost, 'command', 'GetProfitH')
-          .then(res => {
-            onSnapshot(doc(db, "profits_hour", user.idPost), (doc) => {
-              setProfits(doc.data() ? Object.entries(doc.data()).sort((a, b) => a[0] - b[0]) : [] );
-            });    
-          });
-            setTimeout(() => {
-              updateFieldInDocumentInCollection('users', user.idPost, 'command', 'GetOrders')
-                .then(res => {
-            onSnapshot(doc(db, "orders", user.idPost), (doc) => {
-              if(doc.data()) {
-                setGetedOrders(doc.data() ? Object.entries(doc.data()).sort((a, b) => b[1].created_at - a[1].created_at) : []);
-              }
-             
-            });    
-          });
-            }, 500);
-           
+              updateFieldInDocumentInCollection('users', user.idPost, 'command', user.lastOrderTime ?  `GetOrders|start_time=${user.lastOrderTime + 1}`: 'GetOrders')
+              .then(res => {
+                onSnapshot(doc(db, 'orders', user.idPost, 'orders'), (doc) => {
+                  if(doc.data()) {
+                    setGetedOrders(doc.data() ? Object.entries(doc.data()).sort((a, b) => b[1].created_at - a[1].created_at).map(el => el[1]) : []);
+                  }
+               });    
+          }); 
         } catch (error) {
-            console.log(error);
+          console.log(error);
         }
     };
 
+    console.log(getedOrders);
+
     useEffect(() => {
-      if (profits.length === 0 && user.status) {
+      if (getedOrders.length === 0) {
         console.log('getInfo');
         handleGetInformations();
       };
@@ -98,17 +90,15 @@ function Dashboard() {
 
     useEffect(() => {
       if (user.idPost) {
-        const unsubscribe = onSnapshot(doc(db, "profits", user.idPost));
-        const unsubscribeOrd = onSnapshot(doc(db, "orders", user.idPost));
-        return (() => {
-          
-            unsubscribe();
-            unsubscribeOrd();
+        
+        const unsubscribeOrd = onSnapshot(collection(db, 'orders', user.idPost, 'orders'));
 
-        });
+        if (getedOrders.length > 0) {
+          unsubscribeOrd();
+        };
       }
-    },[]);
-
+    },[getedOrders]);
+/* 
     useEffect(() => {
       if(start?.toString().length > 0 || end?.toString().length > 0) {
         const perideIncome = profits.map(el => {
@@ -125,14 +115,13 @@ function Dashboard() {
         setIncomePerc(Math.abs((profits.map(el => el[1]).reduce((a, b) => a + b, 0)) / user.tradingLimit * 100).toFixed(2));
         setOrders(getedOrders);
       }
-    }, [profits, getedOrders, start, end])
+    }, [profits, getedOrders, start, end]) */
 
     const handleModal = () => {
       setIsModal(false);
     };
 
     const getPeriod = () => {
-      console.log((start !== end) && (end !== null))
       switch(true) {
         case (start === end && start === new Date()):
         case (new Date(start).getDate() === new Date().getDate()):
@@ -179,7 +168,7 @@ function Dashboard() {
           
           <div className="dashboard__chartSection">
             <div className="dashboard__chartSection__chart">
-              <Chart 
+              {/* <Chart 
               times={(start?.toString().length > 0 || end?.toString().length > 0) 
                 ? profits.map(el => {
                         
@@ -192,7 +181,7 @@ function Dashboard() {
 
               profit={profits.map((el) => el[1]).map((el, i, arr) => el + arr.slice(0, i).reduce(function(sum, elem) {
 	                  return sum + elem}, 0)) } 
-            />
+            /> */}
             </div>
             
             <div className="dashboard__chartSection__datas">
@@ -201,7 +190,7 @@ function Dashboard() {
                   Income
                 </div>
                 <div className="dashboard__chartSection__datas__item__value">
-                  <span>
+                  {/* <span>
                     {profits.length > 0 
                       && `$${income}` 
                     }
@@ -210,7 +199,7 @@ function Dashboard() {
                     {profits.length > 0 &&
                       `${profits.map(el => el[1]).reduce((a, b) => a + b, 0) > 0 ? '+' : '-'}${incomPerc}%` 
                     }
-                  </span>
+                  </span> */}
                 </div>
               </div> 
               <div className="dashboard__chartSection__datas__item">
@@ -336,7 +325,7 @@ function Dashboard() {
                   setEnd={setEnd} 
                   handleModal={handleModal} 
                   handleGetInformations={handleGetInformations}
-                  profits={profits}
+                  /* profits={profits} */
                 />
               }
             />

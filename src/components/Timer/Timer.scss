@@ -1,3 +1,4 @@
+@import '../../scss/mixin';
 @import '../../scss/variables';
 
 .timer {
@@ -10,10 +11,28 @@
 
   margin-bottom: 40px;
 
+  @include desktop-width {
+    gap: 15px;
+  }
+
+  @include tablet {
+    gap: 10px;
+  }
+
   & span {
     font-size: 64px;
     line-height: 64px;
-   }
+
+    @include desktop-width {
+      font-size: 55px;
+      line-height: 55px;
+    }
+
+    @include tablet {
+      font-size: 50px;
+      line-height: 50px;
+    }
+  }
 
    &__item {
     font-size: 54px;
@@ -31,12 +50,33 @@
     background: linear-gradient(rgba(255, 255, 255, 0.07),
     rgba(255, 255, 255, 0));
 
+    @include desktop-width {
+      font-size: 55px;
+      line-height: 55px;
+
+      width: 120px;
+      height: 120px;
+    }
+
+    @include tablet {
+      font-size: 50px;
+      line-height: 50px;
+
+      width: 110px;
+      height: 110px;
+    }
+
 
     & p {
         font-size: 16px;
         line-height: 24px; 
 
         text-transform: uppercase;
+
+        @include desktop-width {
+          font-size: 14px;
+          line-height: 20px;
+        }
     }
    }
 }

@@ -1,5 +1,6 @@
 @import '../variables';
 @import '../mixin';
+
   .homePage {
     & section {
       
@@ -8,6 +9,14 @@
       width: 100%;
 
       display: flex;
+
+      @include desktop-width {
+        padding: 80px 0;
+      }
+
+      @include tablet {
+        padding: 60px 0;
+      }
 
       & button {
         padding: 15px 60px;
@@ -54,7 +63,15 @@
           list-style-type: none;
 
           & li {
-            list-style-type: decimal;
+            list-style-type: none;
+
+            & li {
+              list-style-type: lower-alpha;
+
+              & li {
+                list-style-type: lower-roman;
+              }
+            }
           }
         }
       }
@@ -72,6 +89,10 @@
       min-height: 500px;
       max-height: max-content;
       width: 100%; 
+
+      @include tablet {
+        display: block;
+      }
       
       @include mobile {
         min-height: 20px;
@@ -94,7 +115,6 @@
       @include tablet {
         width: 100%;
         justify-content: center;
-        margin-bottom: 60px;
         flex-direction: row;
         min-height: max-content;
         height: 100px;
@@ -199,6 +219,14 @@
       border-radius: 10px;
 
       padding: 30px;
+
+      @include desktop-width {
+        width: 75%;
+      }
+
+      @include tablet {
+        width: 80%;
+      }
 
       & input {
         padding: 12px 20px;
