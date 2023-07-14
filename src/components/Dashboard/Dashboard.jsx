@@ -37,6 +37,8 @@ function Dashboard() {
     const pagination = [];
     const [paginationCount, setPaginationCount] = useState([]);
     const [paginationSlice, setPaginationSlice] = useState({start: 0, end: 4});
+    const [chartData, setChartData] = useState([]);
+    const [visibledHistory, setVisibledHistory] = useState([]);
 
     const handleGetInformations = () => {
       setGetedOrders([]);
@@ -111,15 +113,24 @@ function Dashboard() {
       if(start?.toString().length > 0 || end?.toString().length > 0) {
 
         const periodOrders = getedOrders.filter(el => (start ? new Date(el.closed_at) >= start :  new Date(el.created_at)) && (end ? new Date(el.closed_at) <= new Date(end).setDate(end?.getDate() + 1) : new Date(el.closed_at)));
+        const periodHistory = history.map(el => {
+          return [new Date([el[0].slice(0, 4), el[0].slice(4, 6), el[0].slice(6, 8)].join('/') + (` ${el[0].slice(8)}:00`)), el[1]]
+          }).filter(el => {
+            return (start ? new Date(el[0])  >= new Date(start) : el[0]) && (end ? new Date(el[0]) <= new Date(end).setDate(end?.getDate() + 1) : el[0]);
+          }).map(el => [format(el[0], 'yyyyMMddHH'), el[1]]);
+            
+        
         setOrders(periodOrders);
+        setVisibledHistory(periodHistory);
         setIncome(periodOrders.map(el => +el.profit_stable).reduce((a, b) => a + b, 0).toFixed(2));
         setIncomePerc(Math.abs((periodOrders.map(el => +el.profit_stable / (el.limit === 'None' ? (user.tradingLimit) : (+el.limit))).reduce((a, b) => a + b, 0)) * 100).toFixed(2));
       } else {
         setIncome(getedOrders.map(el => +el.profit_stable).reduce((a, b) => a + b, 0).toFixed(2));
         setIncomePerc(Math.abs((getedOrders.map(el => +el.profit_stable / (el.limit === 'None' ? (user.tradingLimit) : (+el.limit))).reduce((a, b) => a + b, 0)) * 100).toFixed(2));
         setOrders(getedOrders);
+        setVisibledHistory(history);
       }
-    }, [getedOrders, start, end])
+    }, [getedOrders, history, start, end]);
 
     const handleModal = () => {
       setIsModal(false);
@@ -132,11 +143,14 @@ function Dashboard() {
           return 'Today';
         case ((start !== end) && (end !== null)): 
           return `${format(start, 'dd/MM/yyyy')} - ${format(end, 'dd/MM/yyyy')}`;
+        case ((!start) && (!end)): 
+          return 'All';  
         case ((start.length !== 0) && (start === end)): 
           return `${format(start, 'dd/MM/yyyy')}`;
+        
 
         default: 
-          return 'All';
+          return;
       }
     };
 
@@ -148,7 +162,50 @@ function Dashboard() {
       return a;
     };
 
-    console.log(history);
+    const getOrdersByHours = () => {
+      if(orders.length > 0) {
+        const newArray = [];
+        const redusedOrders = handleReverse(orders).map(el => {
+          return {
+            date: format(new Date(el.closed_at), 'HH dd.MM.yy'),
+            profit: +el.profit_stable,
+            limit: el.limit === 'None' ? user.tradingLimit : +el.limit,
+          };
+        });
+      
+      for(let i = 0; i < redusedOrders.length; i++) {
+        const arrOrdersHour = redusedOrders?.filter(el => {
+          return el?.date === redusedOrders[i].date
+        });
+        const orderHour = {
+          date: redusedOrders[i].date, 
+          profit: arrOrdersHour.map(el => el.profit).reduce(function(sum, elem) {
+            return sum + elem}, 0),
+          limit: arrOrdersHour[0].limit
+        };
+        newArray.push(orderHour);
+      };
+
+      const result = {};
+
+      for (const item of newArray) {
+        if(!result[item.date]) {
+          result[item.date] = [item.profit, item.limit];
+        } else {
+          continue;
+        }
+          
+      };
+      return(Object.entries(result).sort((a, b) => new Date(a.date) - new Date(b.date)));
+      }
+    };
+
+    useEffect(() => {
+      const data = getOrdersByHours();
+      setChartData(data);
+    }, [orders]);
+
+    console.log(visibledHistory);
 
     return (
         <div className="tabs-page__container">
@@ -182,12 +239,17 @@ function Dashboard() {
           <div className="dashboard__chartSection">
             <div className="dashboard__chartSection__chart">
               <Chart 
-              times={handleReverse(orders).map(el => {
-                  return format(new Date(el.closed_at), 'HH:mm dd.MM.yy');
-                })} 
+                  times={chartData?.map(el => el[0].split(' '))}
 
-              profit={(handleReverse(orders).map((el, i, arr) => +el.profit_stable + (el.limit === 'None' ? user.tradingLimit : +el.limit) + arr.map(el => +el.profit_stable).slice(0, i).reduce(function(sum, elem) {
-	              return sum + elem}, 0)))} 
+                  profit={chartData?.map((el, i, arr) => el[1][0] + el[1][1] + arr.map(el => el[1][0]).slice(0, i).reduce(function(sum, elem) {
+                    return sum + elem}, 0))} 
+
+                  balance={visibledHistory.length > 0 && visibledHistory?.map(el => {
+                    return  [new Date([el[0].slice(0, 4), el[0].slice(4, 6), el[0].slice(6, 8)].join('/') + (` ${el[0].slice(8)}:00`)), el[1]];
+                  }
+                    ).filter(el => {
+                    return chartData?.map(e => e[0]).includes(format(el[0], 'HH dd.MM.yy') )
+                  }).map(el => +(el[1].balance + el[1].usdt).toFixed(2))}
             />
             </div>
             
@@ -217,7 +279,7 @@ function Dashboard() {
                   Current balance
                 </div>
                 <div className="dashboard__chartSection__datas__item__value">
-                  <span>?</span>
+                  <span>{history.length > 0 && `$${(history[history.length - 1][1].balance + history[history.length - 1][1]?.usdt).toFixed(2)}` }</span>
                 </div>
               </div> 
             </div>

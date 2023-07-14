@@ -95,25 +95,21 @@ export const options = {
     },
     legend: {
       align: 'end',
+      onHover: (event) => {
+       event.native.target.style.cursor = 'pointer';
+      },
       labels: {
-        usePointStyle: true,
+      
         font: {
           size: 14,
           lineHeight: '21px',
           weight: 500,
           
       },
+        
         color: 'white',
         boxWidth: 20,
-        generateLabels: (chart) => {
-          return chart.data.datasets.map((dataset, index) => ({
-            text: dataset.label,
-            fillStyle: dataset.backgroundColor,
-            strokeStyle: dataset.borderColor,
-            pointStyle: 'circle',
-
-          }))
-        }
+       
       }
   },
   
@@ -155,7 +151,6 @@ export const options = {
   scales: {
    
     y: {
-     
         border: {
           display:true,
           color: '#fff',
@@ -186,7 +181,6 @@ export const options = {
         }
     },
     x: {
-     
       ticks: {
       
         color: '#F5F5F5',
@@ -215,8 +209,10 @@ export const options = {
 };
 
 export function Chart(props) {
-  const { times, profit } = props;
-  const labels = times.map(el =>  el.split(' '));
+  const { times, profit, balance } = props;
+  const labels = times?.map(el => el = [`${el[0]}:00`, `${el[1]}`]);
+
+  console.log(times, balance);
 
    const data = {
    labels,
@@ -236,6 +232,20 @@ export function Chart(props) {
       pointHoverBackgroundColor: '#73BB82',
       
     },
+    {
+      label: 'Balance',
+      data: (times && balance) && [...new Array(times?.length - balance?.length).fill(balance[0]), ...balance],
+      borderColor: '#3772ff',
+      backgroundColor: '#3772ff',
+      pointStyleWidth: 10,
+      tension: 0.5,
+      borderWidth: 1,
+     
+      pointBackgroundColor: 'transparent',
+      pointBorderColor: 'transparent',
+      pointHoverBorderColor: '#FFF',
+      pointHoverBackgroundColor: '#73BB82',
+    }
   ],
 };
 

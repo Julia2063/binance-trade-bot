@@ -64,7 +64,7 @@ function AddBotsForm({ handleModal, setTabIndex, isUpdateLimit }) {
 
         try {
           /* await createNewBot(fund, user.uid, exchange); */
-          await updateFieldInDocumentInCollection('users', user.idPost, 'tradingLimit', fund === 0 ? available : fund);
+          await updateFieldInDocumentInCollection('users', user.idPost, 'tradingLimit', fund);
           isUpdateLimit 
           ? toast.success('Fund has been updated!')
           : toast.success('Bot has been created!');
